@@ -6,8 +6,3 @@ dist-ssr/
 .env.*
 !.env.example
 .DS_Store
-
-calculadora/data/*.db
-calculadora/data/*.db-*
-calculadora/data/*.db-wal
-calculadora/data/*.db-shm

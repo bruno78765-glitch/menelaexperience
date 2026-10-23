@@ -1,24 +1,21 @@
 {
   "name": "calculadora-precificacao-essence",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "engines": {
     "node": ">=22.5.0"
   },
   "scripts": {
-    "dev": "concurrently -n api,web -c magenta,cyan \"npm run dev:api\" \"npm run dev:web\"",
-    "dev:api": "node --disable-warning=ExperimentalWarning --watch server/index.ts",
-    "dev:web": "vite",
+    "dev": "vite",
     "build": "vite build",
-    "start": "node --disable-warning=ExperimentalWarning server/index.ts --with-static",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.server.json && tsc --noEmit -p tsconfig.node.json",
-    "test": "node --disable-warning=ExperimentalWarning --test --test-reporter spec src/lib/pricing.test.ts src/lib/csv.test.ts server/http.test.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.test.json && tsc --noEmit -p tsconfig.node.json",
+    "test": "node --disable-warning=ExperimentalWarning --test --test-reporter spec src/lib/pricing.test.ts src/lib/csv.test.ts src/lib/api.test.ts",
     "preview": "vite preview --port 4173"
   },
   "dependencies": {
-    "bcryptjs": "^3.0.2",
+    "@supabase/supabase-js": "^2.118.0",
     "lucide-react": "^0.545.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
@@ -30,7 +27,6 @@
     "@types/react-dom": "^18.3.7",
     "@vitejs/plugin-react": "^5.0.4",
     "autoprefixer": "^10.4.21",
-    "concurrently": "^9.2.1",
     "eslint": "^9.36.0",
     "eslint-plugin-react-hooks": "7.1.1",
     "eslint-plugin-react-refresh": "^0.4.22",

@@ -2,66 +2,96 @@
 
 Ferramenta de mentoria (Edna Mari) para formar o preço de um atendimento. O pró-labore entra no custo; a margem de lucro é aplicada por cima. Cada pessoa cria a própria conta e só vê os próprios cenários.
 
+A partir desta versão o site é **100% estático**: login e cenários ficam no **Supabase** (Auth + Postgres com Row Level Security). Não existe mais API Node nem SQLite, então o `dist` pode ser publicado direto no Bolt, na Netlify ou em qualquer hospedagem de arquivos estáticos.
+
 O site da Menela Experience continua na raiz deste repositório. Esta pasta é a calculadora.
 
-## Requisitos
+## Passo a passo para colocar no ar
 
-- Node.js 22.5 ou mais recente (a API usa o SQLite embutido do Node, `node:sqlite`)
-- npm
+1. **Criar a tabela no Supabase (uma vez).** No painel do projeto, abra **SQL Editor → New query**, cole o conteúdo de [`supabase/migrations/20261023200000_cenarios.sql`](supabase/migrations/20261023200000_cenarios.sql) (também está no fim deste README) e clique em **Run**. Pode rodar mais de uma vez sem problema.
+2. **Decidir sobre a confirmação de e-mail.** Por padrão o Supabase exige clicar num link enviado por e-mail antes do primeiro login. A calculadora já trata isso (mostra “verifique seu e-mail”). Se preferir entrar na hora, desligue em **Authentication → Providers → Email → Confirm email** (desmarque e salve).
+3. **Ajustar as URLs do Auth.** Em **Authentication → URL Configuration**, coloque em **Site URL** o endereço público do site (ex.: `https://sua-calculadora.netlify.app`) e adicione o mesmo endereço em **Redirect URLs**. Sem isso o link de confirmação manda a pessoa para `localhost:3000`.
+4. **Publicar** com as duas variáveis de ambiente abaixo (seção “Publicar no Bolt ou na Netlify”).
 
-Não há chave de Supabase nem de outro serviço.
+## Variáveis de ambiente
 
-## Desenvolvimento
+| Variável | Valor | Uso |
+| --- | --- | --- |
+| `VITE_SUPABASE_URL` | `https://rbgpdetmnnspgcesneva.supabase.co` | Endereço do projeto Supabase |
+| `VITE_SUPABASE_ANON_KEY` | chave `anon` do projeto (está em `.env.example`) | Chave pública usada pelo navegador |
 
-Na pasta `calculadora`:
+Os dois valores estão preenchidos em [`.env.example`](.env.example). A chave `anon` é pública por definição: ela vai para o navegador de qualquer pessoa que abrir o site. A proteção dos dados vem do **RLS** no banco, não do sigilo dessa chave. **Nunca** use aqui a chave `service_role` nem a senha do banco.
+
+Para rodar localmente, copie o exemplo:
+
+```bash
+cp .env.example .env
+```
+
+O `.env` está no `.gitignore`. Se as variáveis faltarem no build, a tela mostra “Supabase não configurado” em vez de quebrar.
+
+Para encontrar os valores no painel: **Project Settings → API** (campos *Project URL* e *anon public*).
+
+## Publicar no Bolt ou na Netlify
+
+### Netlify
+
+1. **Add new site → Import an existing project** e escolha este repositório.
+2. **Base directory:** `calculadora` · **Build command:** `npm run build` · **Publish directory:** `calculadora/dist` (o `netlify.toml` desta pasta já traz isso e o redirecionamento para `index.html`).
+3. **Site configuration → Environment variables → Add a variable:** crie `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` com os valores acima. Marque para todos os contextos (Production e Deploy Previews).
+4. **Deploy site.** Depois, volte ao Supabase e coloque a URL do site em **Authentication → URL Configuration** (passo 3 acima).
+
+Mudou uma variável? Rode um novo deploy (**Deploys → Trigger deploy → Clear cache and deploy site**): o Vite embute os valores no build.
+
+### Bolt
+
+1. Abra o projeto no Bolt (a pasta `calculadora` é a raiz do app).
+2. Em **Settings → Environment variables** (ícone de engrenagem) cadastre `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY`. Se o Bolt oferecer a integração nativa com Supabase, ela cria essas mesmas variáveis; confira os nomes.
+3. Use **Deploy** (o Bolt publica na Netlify por baixo). O comando é `npm run build` e a pasta publicada é `dist`.
+4. Cadastre a URL gerada no Supabase (passo 3 do passo a passo).
+
+### Qualquer outra hospedagem estática
 
 ```bash
 npm install
+VITE_SUPABASE_URL=... VITE_SUPABASE_ANON_KEY=... npm run build
+```
+
+Publique a pasta `dist`. É só HTML, CSS e JS.
+
+## Desenvolvimento
+
+Requisitos: Node.js 22.5 ou mais recente e npm.
+
+```bash
+npm install
+cp .env.example .env
 npm run dev
 ```
 
-Isso sobe a API em `http://127.0.0.1:8787` e o Vite em `http://localhost:5173`. Abra o endereço do Vite. O Vite encaminha `/api` para a API.
-
-Conta de teste: use **Criar conta** com e-mail, nome e senha (8 a 72 caracteres).
+Abra `http://localhost:5173`. O front fala direto com o Supabase; não há servidor local.
 
 Os valores de exemplo (material R$ 20, fixo R$ 25, taxas 8%, margem 20%, remuneração R$ 4.000, 100 horas, 1 hora) produzem preço sugerido de **R$ 118,06**.
-
-## Produção
-
-```bash
-npm run build
-npm start
-```
-
-O comando `npm start` serve a pasta `dist` e a API na mesma porta (`http://localhost:8787` por padrão). Não publique só o `dist`: sem a API não há login nem histórico.
 
 ## Testes e checagens
 
 ```bash
-npm test
+npm test            # cálculo, CSV e camada de dados (com cliente Supabase simulado)
 npm run typecheck
 npm run lint
 npm run build
 ```
 
-## Autenticação
+O teste da camada de dados (`src/lib/api.test.ts`) usa um cliente Supabase falso em memória para cobrir cadastro, “verifique seu e-mail”, tradução de erros, conversão de centavos e as regras que impedem salvar cenário inviável. Ele **não** prova o RLS; a prova do RLS é o SQL abaixo rodando no Postgres (as políticas foram verificadas num Postgres local com dois usuários: um não lê, não altera e não apaga o cenário do outro, e o papel `anon` não acessa a tabela).
 
-- Cadastro e entrada com e-mail e senha. O e-mail é guardado em minúsculas.
-- A senha é hash bcrypt (custo 12). O banco não guarda a senha em texto puro.
-- A sessão é um token aleatório. Só o SHA-256 dele fica no SQLite. O navegador recebe o token num cookie `essence_session` (`HttpOnly`, `SameSite=Lax`, 14 dias). Em HTTPS (cabeçalho `X-Forwarded-Proto: https`) o cookie também vai com `Secure`.
-- Cada cenário é gravado com o `user_id` da sessão. Listar, salvar e excluir filtram por essa pessoa. Outra conta não vê nem apaga o registro.
+## Autenticação e dados
 
-O arquivo padrão é `data/app.db` (não versionado).
-
-## Variáveis opcionais
-
-Veja `.env.example`.
-
-| Variável | Padrão | Uso |
-| --- | --- | --- |
-| `PORT` | `8787` | Porta da API |
-| `DATABASE_PATH` | `data/app.db` | Arquivo SQLite |
-| `BCRYPT_ROUNDS` | `12` | Custo do hash. Use `4` só em teste |
+- Cadastro e entrada com e-mail e senha pelo **Supabase Auth**. O nome vai em `user_metadata.name`. A senha é guardada pelo Supabase como hash; o front nunca a vê depois do envio.
+- A sessão fica no `localStorage` do navegador e é renovada pelo próprio cliente Supabase. “Sair” encerra a sessão.
+- Com **Confirm email** ligado, `signUp` devolve a conta sem sessão. A tela mostra “Conta criada. Verifique seu e-mail…” e volta para **Entrar**. Tentar entrar antes de confirmar dá “Confirme seu e-mail antes de entrar”.
+- Cada cenário é gravado em `public.cenarios` com `user_id = auth.uid()`. As políticas de RLS só deixam a pessoa ver, inserir, alterar e excluir as próprias linhas. Quem não está logado não tem permissão nenhuma na tabela.
+- O banco repete as regras do front por `CHECK`: nome de 1 a 120 caracteres, todos os campos do cálculo presentes, horas produtivas maiores que zero e valores não negativos. Um gatilho limita a 200 cenários por pessoa.
+- Limites do Supabase Auth que podem aparecer na tela: muitos e-mails em pouco tempo (`over_email_send_rate_limit`) e domínios reservados como `example.com` (`email_address_invalid`). As mensagens saem em português.
 
 ## Fórmula
 
@@ -80,3 +110,130 @@ A conta é feita em centavos para o relatório fechar.
 - Mostra a composição (materiais, fixos, pró-labore, taxas, lucro).
 - Salva cenários com o nome do procedimento, compara dois preços e exporta CSV.
 - Imprimir / salvar PDF esconde o formulário e deixa o relatório.
+
+## SQL da tabela `cenarios` (cole no SQL Editor)
+
+Mesmo conteúdo de [`supabase/migrations/20261023200000_cenarios.sql`](supabase/migrations/20261023200000_cenarios.sql).
+
+```sql
+-- Calculadora de Precificação — Método Essence
+-- Tabela de cenários salvos, um dono por linha, com RLS.
+-- Rode este arquivo inteiro no SQL Editor do Supabase (Dashboard → SQL Editor → New query → Run).
+-- Pode ser executado mais de uma vez: tudo usa "if not exists" ou "drop ... if exists".
+
+create extension if not exists pgcrypto;
+
+create table if not exists public.cenarios (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  nome_procedimento text not null,
+  inputs jsonb not null,
+  preco_sugerido_cents bigint not null,
+  custo_total_cents bigint not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  constraint cenarios_nome_procedimento_tamanho
+    check (char_length(btrim(nome_procedimento)) between 1 and 120),
+  constraint cenarios_inputs_objeto
+    check (jsonb_typeof(inputs) = 'object'),
+  constraint cenarios_inputs_campos
+    check (
+      inputs ?& array[
+        'custoMaterial',
+        'custoFixo',
+        'taxasVariaveis',
+        'margemLucro',
+        'remuneracaoDesejada',
+        'horasProdutivas',
+        'tempoProcedimento',
+        'percentualDesconto'
+      ]
+    ),
+  constraint cenarios_horas_produtivas_positivas
+    check (jsonb_typeof(inputs -> 'horasProdutivas') = 'number' and (inputs ->> 'horasProdutivas')::numeric > 0),
+  constraint cenarios_valores_nao_negativos
+    check (preco_sugerido_cents >= 0 and custo_total_cents >= 0)
+);
+
+comment on table public.cenarios is 'Cenários de precificação salvos pela calculadora. Cada linha pertence a um usuário do Supabase Auth.';
+comment on column public.cenarios.inputs is 'Entradas do cálculo (reais e percentuais) no formato CompletePricingInput do front.';
+comment on column public.cenarios.preco_sugerido_cents is 'Preço sugerido em centavos, calculado no momento do salvamento.';
+comment on column public.cenarios.custo_total_cents is 'Custo total do atendimento em centavos, calculado no momento do salvamento.';
+
+create index if not exists cenarios_user_id_created_at_idx
+  on public.cenarios (user_id, created_at desc);
+
+-- updated_at automático
+create or replace function public.cenarios_set_updated_at()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  new.updated_at := now();
+  return new;
+end;
+$$;
+
+drop trigger if exists cenarios_set_updated_at on public.cenarios;
+create trigger cenarios_set_updated_at
+  before update on public.cenarios
+  for each row execute function public.cenarios_set_updated_at();
+
+-- Limite de 200 cenários por pessoa (mesma regra da API antiga)
+create or replace function public.cenarios_limite_por_usuario()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  if (select count(*) from public.cenarios where user_id = new.user_id) >= 200 then
+    raise exception 'Você chegou ao limite de 200 cenários. Exclua algum para salvar outro.'
+      using errcode = 'check_violation';
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists cenarios_limite_por_usuario on public.cenarios;
+create trigger cenarios_limite_por_usuario
+  before insert on public.cenarios
+  for each row execute function public.cenarios_limite_por_usuario();
+
+-- Row Level Security: cada pessoa só enxerga e altera as próprias linhas.
+alter table public.cenarios enable row level security;
+alter table public.cenarios force row level security;
+
+drop policy if exists "cenarios: dono lê" on public.cenarios;
+create policy "cenarios: dono lê"
+  on public.cenarios
+  for select
+  to authenticated
+  using ((select auth.uid()) = user_id);
+
+drop policy if exists "cenarios: dono insere" on public.cenarios;
+create policy "cenarios: dono insere"
+  on public.cenarios
+  for insert
+  to authenticated
+  with check ((select auth.uid()) = user_id);
+
+drop policy if exists "cenarios: dono atualiza" on public.cenarios;
+create policy "cenarios: dono atualiza"
+  on public.cenarios
+  for update
+  to authenticated
+  using ((select auth.uid()) = user_id)
+  with check ((select auth.uid()) = user_id);
+
+drop policy if exists "cenarios: dono exclui" on public.cenarios;
+create policy "cenarios: dono exclui"
+  on public.cenarios
+  for delete
+  to authenticated
+  using ((select auth.uid()) = user_id);
+
+-- Quem não está logado (papel anon) não recebe permissão nenhuma.
+revoke all on table public.cenarios from anon;
+grant select, insert, update, delete on table public.cenarios to authenticated;
+```

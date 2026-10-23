@@ -5,10 +5,10 @@ import type { ScenarioDTO } from '@/lib/types.ts';
 
 type ScenarioHistoryProps = {
   scenarios: ScenarioDTO[];
-  compareId: number | null;
+  compareId: string | null;
   onLoad: (scenario: ScenarioDTO) => void;
   onCompare: (scenario: ScenarioDTO) => void;
-  onDelete: (id: number) => void;
+  onDelete: (id: string) => void;
   onExport: () => void;
 };
 
@@ -20,7 +20,7 @@ export function ScenarioHistory({
   onDelete,
   onExport,
 }: ScenarioHistoryProps) {
-  const [pendingDelete, setPendingDelete] = useState<number | null>(null);
+  const [pendingDelete, setPendingDelete] = useState<string | null>(null);
 
   return (
     <section className="no-print bg-white rounded-xl p-6 shadow-sm border border-essence-gold/20" aria-labelledby="historico-titulo">

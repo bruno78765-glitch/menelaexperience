@@ -12,6 +12,10 @@ jobs:
     defaults:
       run:
         working-directory: calculadora
+    env:
+      # Valores públicos (chave anon). O build só precisa deles para embutir no bundle.
+      VITE_SUPABASE_URL: https://rbgpdetmnnspgcesneva.supabase.co
+      VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJiZ3BkZXRtbm5zcGdjZXNuZXZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3ODEwNDAsImV4cCI6MjEwODM1NzA0MH0.gsnNpYtB_mBZGP-KK95Y495FCcs1Tr5EPzrcTjo4SBU
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

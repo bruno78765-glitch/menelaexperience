@@ -1,13 +1,13 @@
 import type { CompletePricingInput } from './pricing.ts';
 
 export type PublicUser = {
-  id: number;
+  id: string;
   email: string;
   name: string;
 };
 
 export type ScenarioDTO = {
-  id: number;
+  id: string;
   nomeProcedimento: string;
   inputs: CompletePricingInput;
   createdAt: string;

@@ -1,48 +1,61 @@
 import { useCallback, useEffect, useState } from 'react';
 import { LogOut } from 'lucide-react';
-import { ApiError, getMe, logout } from '@/lib/api.ts';
+import { ApiError } from '@/lib/api.ts';
+import { SUPABASE_CONFIG_ERROR, api } from '@/lib/supabase.ts';
 import type { PublicUser } from '@/lib/types.ts';
 import { AuthScreen } from '@/components/AuthScreen.tsx';
 import { Calculator } from '@/components/Calculator.tsx';
 
 export default function App() {
   const [user, setUser] = useState<PublicUser | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(SUPABASE_CONFIG_ERROR === null);
   const [bootError, setBootError] = useState<string | null>(null);
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
-    const controller = new AbortController();
+    if (SUPABASE_CONFIG_ERROR) return;
+    let cancelled = false;
     setLoading(true);
-    getMe(controller.signal)
-      .then((data) => {
-        setUser(data.user);
+    api
+      .currentUser()
+      .then((current) => {
+        if (cancelled) return;
+        setUser(current);
         setBootError(null);
         setLoading(false);
       })
       .catch((error: unknown) => {
-        if (error instanceof DOMException && error.name === 'AbortError') return;
+        if (cancelled) return;
         setUser(null);
         setBootError(
           error instanceof ApiError
             ? error.message
-            : 'Não foi possível falar com o servidor. Na pasta calculadora, rode npm run dev.',
+            : 'Não foi possível falar com o Supabase. Confira a conexão e as variáveis VITE_SUPABASE_*.',
         );
         setLoading(false);
       });
-    return () => controller.abort();
+    const unsubscribe = api.onAuthChange((current) => {
+      if (cancelled) return;
+      setUser(current);
+      if (current) setBootError(null);
+    });
+    return () => {
+      cancelled = true;
+      unsubscribe();
+    };
   }, [attempt]);
 
   const onUnauthorized = useCallback(() => {
     setUser(null);
     setBootError('Sua sessão expirou. Entre de novo.');
+    void api.logout().catch(() => undefined);
   }, []);
 
   async function onLogout() {
     try {
-      await logout();
+      await api.logout();
     } catch {
-      // A tela volta ao login mesmo se a rede falhar; o cookie expira no servidor quando a chamada chega.
+      // A tela volta ao login mesmo se a rede falhar; a sessão local é descartada pelo Supabase.
     }
     setUser(null);
   }
@@ -87,6 +100,12 @@ export default function App() {
       </header>
 
       <main id="conteudo" className="max-w-6xl mx-auto px-4 py-8 flex-grow w-full">
+        {SUPABASE_CONFIG_ERROR ? (
+          <div role="alert" className="max-w-xl mx-auto rounded-xl border border-red-200 bg-red-50 p-5 text-sm text-red-900">
+            <h2 className="font-bold text-base mb-2">Supabase não configurado</h2>
+            <p>{SUPABASE_CONFIG_ERROR}</p>
+          </div>
+        ) : null}
         {loading ? <p className="text-sm text-essence-dark">Carregando sua sessão…</p> : null}
         {!loading && bootError && !user ? (
           <div role="alert" className="mb-4 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-900">
@@ -100,12 +119,13 @@ export default function App() {
             </button>
           </div>
         ) : null}
-        {!loading && !user ? <AuthScreen onSuccess={setUser} /> : null}
+        {!loading && !SUPABASE_CONFIG_ERROR && !user ? <AuthScreen onSuccess={setUser} /> : null}
         {user ? <Calculator onUnauthorized={onUnauthorized} /> : null}
       </main>
 
       <footer className="text-center py-6 text-xs text-gray-500 border-t border-gray-200 mt-auto px-4">
-        Método Essence · Edna Mari · Ferramenta de precificação para mentoria. A senha não é armazenada em texto puro.
+        Método Essence · Edna Mari · Ferramenta de precificação para mentoria. Login e cenários ficam no Supabase; a senha não é
+        armazenada em texto puro.
       </footer>
     </div>
   );

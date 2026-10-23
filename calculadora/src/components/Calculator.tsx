@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Info } from 'lucide-react';
-import { ApiError, deleteScenario, listScenarios, saveScenario } from '@/lib/api.ts';
+import { ApiError } from '@/lib/api.ts';
+import { api } from '@/lib/supabase.ts';
 import { calculationCsv, historyCsv } from '@/lib/csv.ts';
 import {
   EXAMPLE_INPUT,
@@ -46,7 +47,7 @@ export function Calculator({ onUnauthorized }: CalculatorProps) {
   const [nome, setNome] = useState('');
   const [input, setInput] = useState<PricingFields>(EXAMPLE_INPUT);
   const [scenarios, setScenarios] = useState<ScenarioDTO[]>([]);
-  const [compareId, setCompareId] = useState<number | null>(null);
+  const [compareId, setCompareId] = useState<string | null>(null);
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -56,9 +57,10 @@ export function Calculator({ onUnauthorized }: CalculatorProps) {
 
   useEffect(() => {
     let cancelled = false;
-    listScenarios()
+    api
+      .listScenarios()
       .then((data) => {
-        if (!cancelled) setScenarios(data.scenarios);
+        if (!cancelled) setScenarios(data);
       })
       .catch((caught: unknown) => {
         if (cancelled) return;
@@ -97,9 +99,9 @@ export function Calculator({ onUnauthorized }: CalculatorProps) {
     }
     setSaving(true);
     try {
-      const response = await saveScenario({ nomeProcedimento: nome.trim(), inputs: input });
-      setScenarios((current) => [response.scenario, ...current]);
-      setStatus(`Cenário “${response.scenario.nomeProcedimento}” salvo no seu histórico.`);
+      const scenario = await api.saveScenario({ nomeProcedimento: nome.trim(), inputs: input });
+      setScenarios((current) => [scenario, ...current]);
+      setStatus(`Cenário “${scenario.nomeProcedimento}” salvo no seu histórico.`);
     } catch (caught) {
       if (caught instanceof ApiError && caught.status === 401) {
         onUnauthorized();
@@ -111,10 +113,10 @@ export function Calculator({ onUnauthorized }: CalculatorProps) {
     }
   }
 
-  async function onDelete(id: number) {
+  async function onDelete(id: string) {
     setError(null);
     try {
-      await deleteScenario(id);
+      await api.deleteScenario(id);
       setScenarios((current) => current.filter((scenario) => scenario.id !== id));
       if (compareId === id) setCompareId(null);
     } catch (caught) {

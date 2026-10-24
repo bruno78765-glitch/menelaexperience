@@ -15,6 +15,10 @@ npm run dev
 
 Abra `http://localhost:5173`. O README da pasta tem o SQL da tabela, as variáveis de ambiente e o passo a passo para publicar no Bolt ou na Netlify.
 
+## Hub Método Essência
+
+Pasta [`essencia`](essencia/README.md). O hub de diagnóstico, calendário, estúdio, vendas e suporte. Cada mentorada entra com e-mail e senha; a recuperação de senha usa o e-mail do Supabase. O SQL que fecha a tabela por conta está em `essencia/supabase/migrations` e precisa ser rodado no painel.
+
 ## Menela Experience
 
 A raiz continua sendo o site do evento (deploy estático na Netlify, `netlify.toml` da raiz). Ele não foi substituído pela calculadora.

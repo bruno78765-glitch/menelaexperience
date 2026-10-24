@@ -1,0 +1,5 @@
+-- Este arquivo ficou só como registro da ordem.
+-- Não cria tabela e não abre policy.
+-- O schema vigente, com uma conta por pessoa, está em
+-- 20261024210000_diagnosticos_por_usuario.sql
+-- Rode somente aquele arquivo no SQL Editor.

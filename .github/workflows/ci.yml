@@ -28,3 +28,25 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npm run build
+
+  essencia:
+    name: Essência (typecheck, lint, test, build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: essencia
+    env:
+      VITE_SUPABASE_URL: https://snfcecgcbueagtmssqgh.supabase.co
+      VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNuZmNlY2djYnVlYWd0bXNzcWdoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1Nzc3NzMsImV4cCI6MjEwODE1Mzc3M30.-fCMdVFyJKrENXZ1iYuvCOyfmBciHZNtD40fErTclQk
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: essencia/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build

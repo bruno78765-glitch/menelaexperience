@@ -1,6 +1,6 @@
 # Repositório
 
-Há dois aplicativos aqui.
+A calculadora e o hub Essência compartilham um projeto Supabase, `rbgpdetmnnspgcesneva`. A mesma conta entra nos dois. Cada app grava na própria tabela (`cenarios` e `essencia_diagnosticos`), com RLS separado. O site do evento continua na raiz e não usa esse banco.
 
 ## Calculadora de Precificação (Método Essence)
 
@@ -17,7 +17,7 @@ Abra `http://localhost:5173`. O README da pasta tem o SQL da tabela, as variáve
 
 ## Hub Método Essência
 
-Pasta [`essencia`](essencia/README.md). O hub de diagnóstico, calendário, estúdio, vendas e suporte. Cada mentorada entra com e-mail e senha; a recuperação de senha usa o e-mail do Supabase. O SQL que fecha a tabela por conta está em `essencia/supabase/migrations` e precisa ser rodado no painel.
+Pasta [`essencia`](essencia/README.md). Diagnóstico, calendário, estúdio, vendas e suporte. A conta é a mesma da calculadora. O SQL de `essencia_diagnosticos` está em `essencia/supabase/migrations` e precisa ser rodado no SQL Editor do projeto `rbgpdetmnnspgcesneva`.
 
 ## Menela Experience
 

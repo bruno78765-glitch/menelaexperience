@@ -36,8 +36,9 @@ jobs:
       run:
         working-directory: essencia
     env:
-      VITE_SUPABASE_URL: https://snfcecgcbueagtmssqgh.supabase.co
-      VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNuZmNlY2djYnVlYWd0bXNzcWdoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1Nzc3NzMsImV4cCI6MjEwODE1Mzc3M30.-fCMdVFyJKrENXZ1iYuvCOyfmBciHZNtD40fErTclQk
+      # Mesmo projeto e a mesma chave anon pública da calculadora.
+      VITE_SUPABASE_URL: https://rbgpdetmnnspgcesneva.supabase.co
+      VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJiZ3BkZXRtbm5zcGdjZXNuZXZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3ODEwNDAsImV4cCI6MjEwODM1NzA0MH0.gsnNpYtB_mBZGP-KK95Y495FCcs1Tr5EPzrcTjo4SBU
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

@@ -6,20 +6,23 @@ O site da Menela Experience continua na raiz do repositório. A calculadora de p
 
 ## O que você precisa fazer no Supabase
 
-O código desta pasta fala com o projeto `snfcecgcbueagtmssqgh`. Daqui não há chave de administrador, então a migração não foi aplicada no banco. Enquanto isso, o login funciona, mas salvar o diagnóstico responde pedindo o SQL.
+Hub e calculadora usam o mesmo projeto, `rbgpdetmnnspgcesneva` (`https://rbgpdetmnnspgcesneva.supabase.co`). A conta é uma só: o e-mail e a senha criados aqui entram na calculadora, e o contrário também. As tabelas continuam separadas (`essencia_diagnosticos` e `cenarios`), cada uma com o próprio RLS.
 
-1. Abra o SQL Editor desse projeto e rode [`supabase/migrations/20261024210000_diagnosticos_por_usuario.sql`](supabase/migrations/20261024210000_diagnosticos_por_usuario.sql). Pode rodar de novo. O arquivo apaga diagnósticos antigos sem dono, deixa uma linha por conta e fecha a tabela para quem não está logado.
-2. Em **Authentication → URL Configuration**, coloque a URL pública do hub em **Site URL** e a mesma URL em **Redirect URLs**. Inclua também `http://localhost:5173` para o ambiente local. Sem isso, o link de redefinição de senha não volta para esta tela.
-3. Em **Authentication → Emails**, confirme que o envio está ativo. O e-mail gratuito do Supabase, em vários projetos, só entrega para endereços autorizados da equipe. Para a recuperação chegar na caixa de qualquer mentorada, configure um SMTP próprio. Se o projeto recusar o endereço, a tela mostra essa limitação em vez de fingir que o e-mail saiu.
+Daqui não há chave de administrador, então o SQL do diagnóstico ainda precisa ser colado no painel. Enquanto a tabela não existir nesse projeto, o login abre e salvar o diagnóstico pede o arquivo.
 
-O cadastro deste projeto está com confirmação automática de e-mail: a pessoa entra logo depois de criar a conta. A redefinição de senha continua dependendo do e-mail.
+1. Abra o SQL Editor do projeto da calculadora (`rbgpdetmnnspgcesneva`) e rode [`supabase/migrations/20261024210000_diagnosticos_por_usuario.sql`](supabase/migrations/20261024210000_diagnosticos_por_usuario.sql). Pode rodar de novo. A tabela `cenarios` já está nesse banco e permanece como está.
+2. Em **Authentication → URL Configuration**, a **Site URL** aceita um endereço só; use a URL pública do hub. Em **Redirect URLs**, inclua a URL pública do hub, a URL pública da calculadora e `http://localhost:5173`. Sem a origem na lista, o link de redefinição de senha e o de confirmação de e-mail não voltam para a tela certa.
+3. Em **Authentication → Providers → Email**, **Confirm email** está ligado neste projeto. Quem cria a conta pode precisar clicar no link do e-mail antes de entrar. A tela já avisa isso.
+4. Em **Authentication → Emails**, o envio gratuito do Supabase, em vários projetos, só entrega para endereços autorizados da equipe. Para a recuperação chegar na caixa de qualquer mentorada, configure um SMTP próprio. Se o projeto recusar o endereço, a tela mostra essa limitação.
+
+O projeto antigo do hub (`snfcecgcbueagtmssqgh`) deixa de receber este app. Diagnósticos e contas que estão só lá continuam só lá. Quando os dois apps estiverem gravando em `rbgpdetmnnspgcesneva`, pause o projeto antigo em **Project Settings** para devolver a vaga do plano gratuito.
 
 ## Variáveis
 
 | Variável | Uso |
 | --- | --- |
-| `VITE_SUPABASE_URL` | URL do projeto |
-| `VITE_SUPABASE_ANON_KEY` | Chave pública `anon` |
+| `VITE_SUPABASE_URL` | `https://rbgpdetmnnspgcesneva.supabase.co` (o mesmo valor da calculadora) |
+| `VITE_SUPABASE_ANON_KEY` | Chave pública `anon` desse projeto |
 
 As duas estão em [`.env.example`](.env.example). A chave `anon` vai para o navegador. A proteção é o RLS, não o sigilo dessa chave. Não coloque a `service_role` aqui.
 

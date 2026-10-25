@@ -134,7 +134,7 @@ export function daLinha(linha: LinhaDiagnostico): DiagnosticoPersistido | null {
 export function traduzirErroBanco(message: string, code: string | null): string {
   const texto = `${code ?? ''} ${message}`;
   if (/user_id|PGRST204|42703|schema cache|column/i.test(texto)) {
-    return 'O banco ainda não separa o diagnóstico por conta. No SQL Editor do Supabase, rode o arquivo supabase/migrations/20261024210000_diagnosticos_por_usuario.sql.';
+    return 'O banco ainda não separa o diagnóstico por conta. No SQL Editor do projeto rbgpdetmnnspgcesneva (o mesmo da calculadora), rode o arquivo supabase/migrations/20261024210000_diagnosticos_por_usuario.sql.';
   }
   if (/PGRST116|more than one row|multiple/i.test(texto)) {
     return 'Há mais de um diagnóstico para esta conta. Rode a migração nova no SQL Editor para deixar uma linha por pessoa.';

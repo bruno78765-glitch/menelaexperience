@@ -1,6 +1,7 @@
 -- Diagnóstico por pessoa (Supabase Auth + RLS).
--- Rode este arquivo inteiro no SQL Editor do projeto snfcecgcbueagtmssqgh.
--- Pode ser executado mais de uma vez.
+-- Rode este arquivo inteiro no SQL Editor do projeto rbgpdetmnnspgcesneva,
+-- o mesmo da calculadora (tabela public.cenarios). As duas tabelas ficam juntas;
+-- cada uma tem o próprio RLS. Pode ser executado mais de uma vez.
 --
 -- Linhas antigas, gravadas sem dono, são apagadas: elas não pertencem a nenhuma conta
 -- e o modelo anterior deixava qualquer visitante ler e apagar a tabela.

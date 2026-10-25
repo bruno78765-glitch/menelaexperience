@@ -1,6 +1,6 @@
 import { Download, Printer } from 'lucide-react';
-import { formatBRL, formatPercent, type PricingFields, type PricingResult, type PricingSuccess } from '@/lib/pricing.ts';
-import { ResultAlerts } from '@/components/ResultAlerts.tsx';
+import { formatBRL, formatPercent, type PricingFields, type PricingResult, type PricingSuccess } from '../lib/pricing.ts';
+import { ResultAlerts } from './ResultAlerts.tsx';
 
 type DiagnosisProps = {
   nome: string;

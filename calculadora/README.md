@@ -4,7 +4,7 @@ Ferramenta de mentoria (Edna Mari) para formar o preço de um atendimento. O pr�
 
 A partir desta versão o site é **100% estático**: login e cenários ficam no **Supabase** (Auth + Postgres com Row Level Security). Não existe mais API Node nem SQLite, então o `dist` pode ser publicado direto no Bolt, na Netlify ou em qualquer hospedagem de arquivos estáticos.
 
-O site da Menela Experience continua na raiz deste repositório. Esta pasta é a calculadora. O hub em [`essencia/`](../essencia/README.md) usa este mesmo projeto Supabase: a mesma conta entra nos dois apps, e o diagnóstico fica na tabela `essencia_diagnosticos`.
+O site da Menela Experience continua na raiz deste repositório. Esta pasta é a calculadora. O hub em [`essencia/`](../essencia/README.md) usa este mesmo projeto Supabase e também abre esta calculadora no menu, na mesma conta. O diagnóstico fica na tabela `essencia_diagnosticos`.
 
 ## Passo a passo para colocar no ar
 

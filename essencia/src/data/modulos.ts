@@ -4,6 +4,7 @@ import {
   Clapperboard,
   MessageSquareText,
   LifeBuoy,
+  Calculator,
   type LucideIcon,
   GraduationCap,
   Award,
@@ -12,7 +13,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 
-export type ModuleId = 'dashboard' | 'calendario' | 'estudio' | 'vendas' | 'suporte';
+export type ModuleId = 'dashboard' | 'calendario' | 'estudio' | 'vendas' | 'precificacao' | 'suporte';
 
 export interface ModuloNav {
   id: ModuleId;
@@ -26,6 +27,7 @@ export const MODULOS: ModuloNav[] = [
   { id: 'calendario', label: 'Calendário Editorial', sublabel: '30 dias · 5 pilares', icone: CalendarDays },
   { id: 'estudio', label: 'Estúdio de Conteúdo', sublabel: 'Reels · Carrosséis · Legenda', icone: Clapperboard },
   { id: 'vendas', label: 'Treinador de Vendas', sublabel: 'Método C.L.A.R.A.', icone: MessageSquareText },
+  { id: 'precificacao', label: 'Calculadora', sublabel: 'Preço e viabilidade', icone: Calculator },
   { id: 'suporte', label: 'Suporte & Atendimento', sublabel: 'Dúvidas do sistema', icone: LifeBuoy },
 ];
 

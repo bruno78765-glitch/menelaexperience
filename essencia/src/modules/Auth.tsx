@@ -25,7 +25,7 @@ function Marca() {
         <p className="font-display text-lg font-semibold text-creme-50">
           Método <span className="gold-text">Essência</span>
         </p>
-        <p className="text-[10px] uppercase tracking-[0.22em] text-creme-200/55">Conta individual</p>
+        <p className="text-[10px] uppercase tracking-[0.22em] text-creme-200/55">Área da mentorada</p>
       </div>
     </div>
   );
@@ -105,7 +105,7 @@ export function AuthScreen({
       <section className="glass rounded-2xl p-6 shadow-card">
         <h1 className="font-display text-3xl text-creme-50">{titulo}</h1>
         <p className="mt-2 text-sm text-creme-200/70">
-          Cada pessoa entra com o próprio e-mail e a própria senha. O diagnóstico fica visível só para quem o gravou.
+          Uma conta abre o diagnóstico, o calendário, o estúdio, as vendas e a calculadora de preço. O que você gravar fica só na sua conta.
         </p>
         <div className="mt-5 grid grid-cols-3 gap-2" role="tablist" aria-label="Forma de acesso">
           {(

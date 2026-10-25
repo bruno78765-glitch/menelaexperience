@@ -129,3 +129,54 @@
     -webkit-text-fill-color: transparent;
   }
 }
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  body {
+    background: #fff !important;
+    color: #1c1c1c !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  table.print-only {
+    display: table !important;
+  }
+
+  .calc-layout {
+    display: block !important;
+  }
+
+  .report-sheet {
+    position: static !important;
+    width: 100% !important;
+    background: #fff !important;
+    color: #1c1c1c !important;
+    box-shadow: none !important;
+    border: 1px solid #bbb !important;
+    break-inside: avoid;
+  }
+
+  .report-sheet,
+  .report-sheet * {
+    color: #1c1c1c !important;
+  }
+
+  .report-sheet .alert {
+    background: #fff !important;
+    border: 1px solid #991b1b !important;
+  }
+
+  @page {
+    margin: 14mm;
+  }
+}

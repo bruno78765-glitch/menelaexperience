@@ -1,4 +1,4 @@
-import { formatBRL, formatPercent, type PricingResult } from '@/lib/pricing.ts';
+import { formatBRL, formatPercent, type PricingResult } from '../lib/pricing.ts';
 import { AlertTriangle } from 'lucide-react';
 
 export function ResultAlerts({ result }: { result: PricingResult }) {

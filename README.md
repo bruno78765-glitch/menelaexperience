@@ -1,6 +1,6 @@
 # Repositório
 
-A calculadora e o hub Essência compartilham um projeto Supabase, `rbgpdetmnnspgcesneva`. A mesma conta entra nos dois. Cada app grava na própria tabela (`cenarios` e `essencia_diagnosticos`), com RLS separado. O site do evento continua na raiz e não usa esse banco.
+A calculadora e o hub Essência compartilham um projeto Supabase, `rbgpdetmnnspgcesneva`. A mesma conta entra nos dois. No hub, a calculadora também aparece no menu, como uma área da mentorada. Cada parte grava na própria tabela (`cenarios` e `essencia_diagnosticos`), com RLS separado. O site do evento continua na raiz e não usa esse banco.
 
 ## Calculadora de Precificação (Método Essence)
 

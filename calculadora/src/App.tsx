@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { LogOut } from 'lucide-react';
-import { ApiError } from '@/lib/api.ts';
-import { SUPABASE_CONFIG_ERROR, api } from '@/lib/supabase.ts';
-import type { PublicUser } from '@/lib/types.ts';
-import { AuthScreen } from '@/components/AuthScreen.tsx';
-import { Calculator } from '@/components/Calculator.tsx';
+import { ApiError } from './lib/api.ts';
+import { SUPABASE_CONFIG_ERROR, api } from './lib/supabase.ts';
+import type { PublicUser } from './lib/types.ts';
+import { AuthScreen } from './components/AuthScreen.tsx';
+import { Calculator } from './components/Calculator.tsx';
 
 export default function App() {
   const [user, setUser] = useState<PublicUser | null>(null);
@@ -120,7 +120,7 @@ export default function App() {
           </div>
         ) : null}
         {!loading && !SUPABASE_CONFIG_ERROR && !user ? <AuthScreen onSuccess={setUser} /> : null}
-        {user ? <Calculator onUnauthorized={onUnauthorized} /> : null}
+        {user ? <Calculator api={api} onUnauthorized={onUnauthorized} /> : null}
       </main>
 
       <footer className="text-center py-6 text-xs text-gray-500 border-t border-gray-200 mt-auto px-4">

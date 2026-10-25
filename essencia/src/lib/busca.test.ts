@@ -18,4 +18,6 @@ test('quando dois módulos casam, vence o mais específico', () => {
   equal(buscarResposta('como editar uma legenda', BASE_CONHECIMENTO)?.resposta.includes('Legenda'), true);
   equal(buscarResposta('qual é o gancho do reel', BASE_CONHECIMENTO)?.resposta.includes('Vídeos Curtos'), true);
   equal(moduloDe('como responder está caro'), 'vendas');
+  equal(moduloDe('quero precificar um atendimento'), 'precificacao');
+  equal(moduloDe('como calcular o preço'), 'precificacao');
 });

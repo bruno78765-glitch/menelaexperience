@@ -38,6 +38,12 @@ export const BASE_CONHECIMENTO: RespostaBot[] = [
     acao: { label: 'Abrir diagnóstico', modulo: 'dashboard' },
   },
   {
+    palavrasChave: ['precificacao', 'precificar', 'preco', 'cenario', 'prolabore', 'pro-labore', 'viabilidade', 'calcular o preco'],
+    resposta:
+      'A calculadora de preço está no menu, na mesma conta. Ela forma o preço do atendimento com pró-labore dentro do custo e margem por cima. Os cenários salvos aparecem só para quem entrou.',
+    acao: { label: 'Abrir calculadora', modulo: 'precificacao' },
+  },
+  {
     palavrasChave: ['humano', 'atendente', 'mentor', 'suporte', 'falar com', 'whatsapp'],
     resposta:
       'Eu só respondo dúvidas sobre os módulos do sistema. O contato da equipe não fica neste aplicativo.',
@@ -45,9 +51,9 @@ export const BASE_CONHECIMENTO: RespostaBot[] = [
   {
     palavrasChave: ['ola', 'oi', 'bom dia', 'boa tarde', 'boa noite'],
     resposta:
-      'Olá. Eu respondo sobre calendário, estúdio, vendas e diagnóstico. O que você precisa?',
+      'Olá. Eu respondo sobre calendário, estúdio, vendas, diagnóstico e calculadora de preço. O que você precisa?',
   },
 ];
 
 export const MENSAGEM_INICIAL =
-  'Olá. Eu respondo dúvidas sobre calendário, conteúdo, vendas e diagnóstico.';
+  'Olá. Eu respondo dúvidas sobre calendário, conteúdo, vendas, diagnóstico e calculadora de preço.';

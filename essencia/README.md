@@ -1,6 +1,6 @@
 # Método Essência
 
-Hub da mentorada: diagnóstico, calendário de 30 dias, estúdio, treinador de vendas e suporte. Cada pessoa entra com o próprio e-mail e a própria senha. O diagnóstico fica numa linha da conta dela.
+Área da mentorada: diagnóstico, calendário de 30 dias, estúdio, treinador de vendas, calculadora de preço e suporte. Cada pessoa entra com o próprio e-mail e a própria senha. O diagnóstico e os cenários de preço ficam na conta dela. A calculadora também continua disponível sozinha na pasta `calculadora/`, com a mesma conta.
 
 O site da Menela Experience continua na raiz do repositório. A calculadora de precificação continua em `calculadora/`. Esta pasta é o hub.
 

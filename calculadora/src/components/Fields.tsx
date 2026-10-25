@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { clampNumber, readNumberInput } from '@/lib/pricing.ts';
+import { clampNumber, readNumberInput } from '../lib/pricing.ts';
 
 type NumberFieldProps = {
   id: string;

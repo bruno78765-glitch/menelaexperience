@@ -9,6 +9,7 @@ import { Calendario } from '@/modules/Calendario';
 import { Estudio } from '@/modules/Estudio';
 import { Vendas } from '@/modules/Vendas';
 import { Suporte } from '@/modules/Suporte';
+import { Precificacao } from '@/modules/Precificacao';
 import { AuthScreen, RedefinirSenha } from '@/modules/Auth';
 
 function Brand() {
@@ -21,9 +22,7 @@ function Brand() {
         <p className="font-display text-lg font-semibold text-creme-50">
           Método <span className="gold-text">Essência</span>
         </p>
-        <p className="text-[10px] uppercase tracking-[0.22em] text-creme-200/55">
-          Comunicação Magnética & Posicionamento
-        </p>
+        <p className="text-[10px] uppercase tracking-[0.22em] text-creme-200/55">Área da mentorada</p>
       </div>
     </div>
   );
@@ -99,7 +98,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
-      <header className="sticky top-0 z-40 border-b border-essencia-500/30 bg-essencia-900/80 backdrop-blur-xl lg:hidden">
+      <header className="no-print sticky top-0 z-40 border-b border-essencia-500/30 bg-essencia-900/80 backdrop-blur-xl lg:hidden">
         <div className="flex items-center justify-between px-4 py-3">
           <Brand />
           <button
@@ -116,7 +115,7 @@ export default function App() {
 
       <div className="flex">
         <aside
-          className={`fixed inset-y-0 left-0 z-50 w-72 transform border-r border-essencia-500/30 bg-essencia-900/95 backdrop-blur-xl transition-transform duration-300 ease-in-out lg:sticky lg:top-0 lg:z-30 lg:h-screen lg:translate-x-0 ${
+          className={`no-print fixed inset-y-0 left-0 z-50 w-72 transform border-r border-essencia-500/30 bg-essencia-900/95 backdrop-blur-xl transition-transform duration-300 ease-in-out lg:sticky lg:top-0 lg:z-30 lg:h-screen lg:translate-x-0 ${
             menuAberto ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
@@ -175,7 +174,7 @@ export default function App() {
 
         <main className="min-h-screen flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
           <div className="mx-auto max-w-6xl">
-            <div className="mb-6 hidden items-center gap-2 text-xs text-creme-200/50 sm:flex">
+            <div className="no-print mb-6 hidden items-center gap-2 text-xs text-creme-200/50 sm:flex">
               <span>Método Essência</span>
               <ChevronRight className="h-3 w-3" />
               <span className="text-champagne-500">{moduloAtual.label}</span>
@@ -184,9 +183,10 @@ export default function App() {
             {modulo === 'calendario' && <Calendario nicho={nicho} onConfigurar={() => navegar('dashboard')} />}
             {modulo === 'estudio' && <Estudio nicho={nicho} />}
             {modulo === 'vendas' && <Vendas nicho={nicho} />}
+            {modulo === 'precificacao' && <Precificacao onSair={() => void auth.sair()} />}
             {modulo === 'suporte' && <Suporte onNavegar={navegar} />}
-            <footer className="mt-12 border-t border-essencia-500/20 pt-6 text-center text-xs text-creme-200/40">
-              Método Essência · Comunicação Magnética & Posicionamento
+            <footer className="no-print mt-12 border-t border-essencia-500/20 pt-6 text-center text-xs text-creme-200/40">
+              Método Essência · Área da mentorada
             </footer>
           </div>
         </main>

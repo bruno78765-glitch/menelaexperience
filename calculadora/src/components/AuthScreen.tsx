@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
-import { ApiError } from '@/lib/api.ts';
-import { api } from '@/lib/supabase.ts';
-import type { PublicUser } from '@/lib/types.ts';
+import { ApiError } from '../lib/api.ts';
+import { api } from '../lib/supabase.ts';
+import type { PublicUser } from '../lib/types.ts';
 
 type AuthScreenProps = {
   onSuccess: (user: PublicUser) => void;

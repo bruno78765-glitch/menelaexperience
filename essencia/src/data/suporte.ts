@@ -40,14 +40,14 @@ export const BASE_CONHECIMENTO: RespostaBot[] = [
   {
     palavrasChave: ['humano', 'atendente', 'mentor', 'suporte', 'falar com', 'whatsapp'],
     resposta:
-      'Para falar com uma pessoa, use o botão de WhatsApp desta tela. O atendimento humano é de segunda a sexta, em horário comercial. Eu só respondo dúvidas sobre os módulos do sistema.',
+      'Eu só respondo dúvidas sobre os módulos do sistema. O contato da equipe não fica neste aplicativo.',
   },
   {
     palavrasChave: ['ola', 'oi', 'bom dia', 'boa tarde', 'boa noite'],
     resposta:
-      'Olá. Eu respondo sobre calendário, estúdio, vendas e diagnóstico. Se quiser uma pessoa da equipe, use o WhatsApp. O que você precisa?',
+      'Olá. Eu respondo sobre calendário, estúdio, vendas e diagnóstico. O que você precisa?',
   },
 ];
 
 export const MENSAGEM_INICIAL =
-  'Olá. Eu respondo dúvidas sobre calendário, conteúdo, vendas e diagnóstico. Para uma pessoa da equipe, use o botão do WhatsApp.';
+  'Olá. Eu respondo dúvidas sobre calendário, conteúdo, vendas e diagnóstico.';

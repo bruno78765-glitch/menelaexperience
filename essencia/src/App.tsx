@@ -3,7 +3,6 @@ import { Menu, X, Crown, ChevronRight, LogOut } from 'lucide-react';
 import { MODULOS, moduloValido, type ModuleId } from '@/data/modulos';
 import { useDiagnostico } from '@/hooks/useDiagnostico';
 import { useAuth } from '@/hooks/useAuth';
-import { WHATSAPP_URL } from '@/data/whatsapp';
 import { SUPABASE_CONFIG_ERROR } from '@/lib/supabase';
 import { Dashboard } from '@/modules/Dashboard';
 import { Calendario } from '@/modules/Calendario';
@@ -149,15 +148,6 @@ export default function App() {
               })}
             </nav>
             <div className="space-y-3 p-4">
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex w-full items-center justify-center gap-2 rounded-xl border border-champagne-500/40 bg-champagne-500/10 px-4 py-3 text-sm font-medium text-champagne-500 transition-all duration-300 hover:bg-champagne-500/20"
-              >
-                Suporte WhatsApp
-                <ChevronRight className="h-4 w-4" />
-              </a>
               {nicho && (
                 <p className="px-1 text-center text-[11px] text-creme-200/45">
                   Nicho ativo: <span className="text-champagne-500">{nicho}</span>

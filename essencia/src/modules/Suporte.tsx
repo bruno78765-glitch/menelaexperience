@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { Send, MessageCircle, Phone, Sparkles, ChevronRight } from 'lucide-react';
+import { Send, Sparkles, ChevronRight } from 'lucide-react';
 import { Card, SectionHeader } from '@/components/ui';
-import { WHATSAPP_URL, WHATSAPP_NUMERO } from '@/data/whatsapp';
 import { BASE_CONHECIMENTO, MENSAGEM_INICIAL } from '@/data/suporte';
 import { buscarResposta, type AcaoBot } from '@/lib/busca';
 import { moduloValido } from '@/data/modulos';
@@ -51,7 +50,7 @@ export function Suporte({ onNavegar }: { onNavegar: (id: string) => void }) {
         autora: 'essencia',
         texto: encontrada
           ? encontrada.resposta
-          : 'Não encontrei isso na base do sistema. Para uma resposta da equipe, use o WhatsApp.',
+          : 'Não encontrei isso na base do sistema. Eu só respondo dúvidas sobre os módulos.',
         acao: encontrada?.acao,
       };
       setMensagens((atual) => [...atual, resposta]);
@@ -66,7 +65,7 @@ export function Suporte({ onNavegar }: { onNavegar: (id: string) => void }) {
       <SectionHeader
         eyebrow="Módulo 5 · Painel de Suporte & Atendimento Direto"
         titulo="Tira-dúvidas e suporte humanizado"
-        descricao="A assistente responde sobre os módulos do sistema. Para atendimento com uma pessoa, fale com a equipe pelo WhatsApp."
+        descricao="A assistente responde sobre os módulos do sistema."
       />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -144,36 +143,6 @@ export function Suporte({ onNavegar }: { onNavegar: (id: string) => void }) {
         </Card>
 
         <div className="space-y-4">
-          <Card className="overflow-hidden">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-green-500/15 to-essencia-700/10" />
-              <div className="relative p-5">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-500 text-white shadow-lg">
-                    <MessageCircle className="h-6 w-6" />
-                  </span>
-                  <div>
-                    <p className="font-display text-lg text-creme-50">Suporte humanizado</p>
-                    <p className="text-xs text-creme-200/70">{WHATSAPP_NUMERO}</p>
-                  </div>
-                </div>
-                <p className="mt-4 text-sm text-creme-200/80">
-                  Fale com a equipe da mentoria para suporte personalizado, dúvidas de percurso e questões de conta.
-                </p>
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-green-500 px-5 py-3.5 font-semibold text-white transition-all duration-300 hover:bg-green-400"
-                >
-                  <Phone className="h-5 w-5" />
-                  Falar no WhatsApp
-                  <ChevronRight className="h-4 w-4" />
-                </a>
-              </div>
-            </div>
-          </Card>
-
           <Card>
             <p className="eyebrow mb-3">Atalhos</p>
             <div className="space-y-2">

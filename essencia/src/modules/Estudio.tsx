@@ -4,7 +4,6 @@ import {
   Layers,
   PenLine,
   Film,
-  ChevronRight,
   Lightbulb,
   ArrowRight,
 } from 'lucide-react';
@@ -15,7 +14,6 @@ import {
   ANATOMIA_LEGENDA,
   type RoteiroReel,
 } from '@/data/estudio';
-import { WHATSAPP_URL } from '@/data/whatsapp';
 import { personalizarValor } from '@/lib/nicho';
 
 type Aba = 'reels' | 'carrossel' | 'legenda';
@@ -152,15 +150,9 @@ function LegendaView({ partes }: { partes: typeof ANATOMIA_LEGENDA }) {
         ))}
       </div>
 
-      <div className="mt-5 flex flex-col items-start gap-3 rounded-xl border border-champagne-500/30 bg-champagne-500/10 p-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="flex items-center gap-2 text-sm text-creme-50">
-          <Lightbulb className="h-4 w-4 text-champagne-500" />
-          Quer revisão de legenda com um mentor?
-        </p>
-        <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-gold">
-          Enviar legenda no WhatsApp
-          <ChevronRight className="h-4 w-4" />
-        </a>
+      <div className="mt-5 flex items-center gap-2 rounded-xl border border-champagne-500/30 bg-champagne-500/10 p-4">
+        <Lightbulb className="h-4 w-4 shrink-0 text-champagne-500" />
+        <p className="text-sm text-creme-50">A revisão da legenda fica com a sua mentora, fora deste aplicativo.</p>
       </div>
     </Card>
   );

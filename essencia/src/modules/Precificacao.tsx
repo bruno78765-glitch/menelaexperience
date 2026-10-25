@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { SectionHeader } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
-import { Calculator } from '../../../calculadora/src/components/Calculator.tsx';
-import { createApi, type AppSupabaseClient } from '../../../calculadora/src/lib/api.ts';
+import { Calculator } from '@/calculadora/components/Calculator.tsx';
+import { createApi, type AppSupabaseClient } from '@/calculadora/lib/api.ts';
 
 export function Precificacao({ onSair }: { onSair: () => void }) {
   const api = useMemo(() => createApi(supabase as unknown as AppSupabaseClient), []);

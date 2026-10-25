@@ -1,8 +1,8 @@
 # Método Essência
 
-Área da mentorada: diagnóstico, calendário de 30 dias, estúdio, treinador de vendas, calculadora de preço e suporte. Cada pessoa entra com o próprio e-mail e a própria senha. O diagnóstico e os cenários de preço ficam na conta dela. A calculadora também continua disponível sozinha na pasta `calculadora/`, com a mesma conta.
+Área da mentorada: diagnóstico, calendário de 30 dias, estúdio, treinador de vendas, calculadora de preço e suporte. Cada pessoa entra com o próprio e-mail e a própria senha. O diagnóstico e os cenários de preço ficam na conta dela.
 
-O site da Menela Experience continua na raiz do repositório. A calculadora de precificação continua em `calculadora/`. Esta pasta é o hub.
+Esta pasta substitui o zip do Bolt. A calculadora está dentro dela, em `src/calculadora`, e aparece no menu. A pasta `calculadora/` na raiz do repositório continua abrindo a mesma ferramenta sozinha, com a mesma conta. O site da Menela Experience continua na raiz.
 
 ## O que você precisa fazer no Supabase
 
@@ -10,7 +10,7 @@ Hub e calculadora usam o mesmo projeto, `rbgpdetmnnspgcesneva` (`https://rbgpdet
 
 Daqui não há chave de administrador, então o SQL do diagnóstico ainda precisa ser colado no painel. Enquanto a tabela não existir nesse projeto, o login abre e salvar o diagnóstico pede o arquivo.
 
-1. Abra o SQL Editor do projeto da calculadora (`rbgpdetmnnspgcesneva`) e rode [`supabase/migrations/20261024210000_diagnosticos_por_usuario.sql`](supabase/migrations/20261024210000_diagnosticos_por_usuario.sql). Pode rodar de novo. A tabela `cenarios` já está nesse banco e permanece como está.
+1. Abra o SQL Editor do projeto `rbgpdetmnnspgcesneva` e rode os dois arquivos desta pasta: [`supabase/migrations/20261023200000_cenarios.sql`](supabase/migrations/20261023200000_cenarios.sql) e [`supabase/migrations/20261024210000_diagnosticos_por_usuario.sql`](supabase/migrations/20261024210000_diagnosticos_por_usuario.sql). Pode rodar de novo. Um cuida dos cenários de preço e o outro do diagnóstico.
 2. Em **Authentication → URL Configuration**, a **Site URL** aceita um endereço só; use a URL pública do hub. Em **Redirect URLs**, inclua a URL pública do hub, a URL pública da calculadora e `http://localhost:5173`. Sem a origem na lista, o link de redefinição de senha e o de confirmação de e-mail não voltam para a tela certa.
 3. Em **Authentication → Providers → Email**, **Confirm email** está ligado neste projeto. Quem cria a conta pode precisar clicar no link do e-mail antes de entrar. A tela já avisa isso.
 4. Em **Authentication → Emails**, o envio gratuito do Supabase, em vários projetos, só entrega para endereços autorizados da equipe. Para a recuperação chegar na caixa de qualquer mentorada, configure um SMTP próprio. Se o projeto recusar o endereço, a tela mostra essa limitação.

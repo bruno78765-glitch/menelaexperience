@@ -4,13 +4,13 @@ Ferramenta de mentoria (Edna Mari) para formar o preço de um atendimento. O pr�
 
 A partir desta versão o site é **100% estático**: login e cenários ficam no **Supabase** (Auth + Postgres com Row Level Security). Não existe mais API Node nem SQLite, então o `dist` pode ser publicado direto no Bolt, na Netlify ou em qualquer hospedagem de arquivos estáticos.
 
-O site da Menela Experience continua na raiz deste repositório. Esta pasta é a calculadora.
+O site da Menela Experience continua na raiz deste repositório. Esta pasta é a calculadora. O hub em [`essencia/`](../essencia/README.md) usa este mesmo projeto Supabase e também abre esta calculadora no menu, na mesma conta. O diagnóstico fica na tabela `essencia_diagnosticos`.
 
 ## Passo a passo para colocar no ar
 
-1. **Criar a tabela no Supabase (uma vez).** No painel do projeto, abra **SQL Editor → New query**, cole o conteúdo de [`supabase/migrations/20261023200000_cenarios.sql`](supabase/migrations/20261023200000_cenarios.sql) (também está no fim deste README) e clique em **Run**. Pode rodar mais de uma vez sem problema.
-2. **Decidir sobre a confirmação de e-mail.** Por padrão o Supabase exige clicar num link enviado por e-mail antes do primeiro login. A calculadora já trata isso (mostra “verifique seu e-mail”). Se preferir entrar na hora, desligue em **Authentication → Providers → Email → Confirm email** (desmarque e salve).
-3. **Ajustar as URLs do Auth.** Em **Authentication → URL Configuration**, coloque em **Site URL** o endereço público do site (ex.: `https://sua-calculadora.netlify.app`) e adicione o mesmo endereço em **Redirect URLs**. Sem isso o link de confirmação manda a pessoa para `localhost:3000`.
+1. **Criar as tabelas no projeto `rbgpdetmnnspgcesneva` (uma vez).** No painel, abra **SQL Editor → New query**. Cole [`supabase/migrations/20261023200000_cenarios.sql`](supabase/migrations/20261023200000_cenarios.sql) (também está no fim deste README) e clique em **Run**. No mesmo editor, cole [`../essencia/supabase/migrations/20261024210000_diagnosticos_por_usuario.sql`](../essencia/supabase/migrations/20261024210000_diagnosticos_por_usuario.sql). Os dois arquivos podem rodar de novo e cada um cuida só da própria tabela.
+2. **Decidir sobre a confirmação de e-mail.** Neste projeto, **Confirm email** está ligado: a pessoa clica num link antes do primeiro login. A calculadora e o hub já tratam isso. Se preferir entrar na hora, desligue em **Authentication → Providers → Email → Confirm email**. A mudança vale para os dois apps, porque o login é o mesmo.
+3. **Ajustar as URLs do Auth.** Em **Authentication → URL Configuration**, a **Site URL** aceita um endereço. Em **Redirect URLs**, inclua a URL pública da calculadora, a URL pública do hub e `http://localhost:5173`. Sem a origem na lista, o link de confirmação não volta para o app certo.
 4. **Publicar** com as duas variáveis de ambiente abaixo (seção “Publicar no Bolt ou na Netlify”).
 
 ## Variáveis de ambiente

@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Info } from 'lucide-react';
-import { ApiError } from '@/lib/api.ts';
-import { api } from '@/lib/supabase.ts';
-import { calculationCsv, historyCsv } from '@/lib/csv.ts';
+import { ApiError, type Api } from '../lib/api.ts';
+import { calculationCsv, historyCsv } from '../lib/csv.ts';
 import {
   EXAMPLE_INPUT,
   LIMITS,
@@ -11,13 +10,14 @@ import {
   formatBRL,
   isCompletePricingInput,
   type PricingFields,
-} from '@/lib/pricing.ts';
-import type { ScenarioDTO } from '@/lib/types.ts';
-import { Diagnosis } from '@/components/Diagnosis.tsx';
-import { NumberField, TextField } from '@/components/Fields.tsx';
-import { ScenarioHistory } from '@/components/ScenarioHistory.tsx';
+} from '../lib/pricing.ts';
+import type { ScenarioDTO } from '../lib/types.ts';
+import { Diagnosis } from './Diagnosis.tsx';
+import { NumberField, TextField } from './Fields.tsx';
+import { ScenarioHistory } from './ScenarioHistory.tsx';
 
 type CalculatorProps = {
+  api: Api;
   onUnauthorized: () => void;
 };
 
@@ -43,7 +43,7 @@ function slug(value: string): string {
   return base || 'cenario';
 }
 
-export function Calculator({ onUnauthorized }: CalculatorProps) {
+export function Calculator({ api, onUnauthorized }: CalculatorProps) {
   const [nome, setNome] = useState('');
   const [input, setInput] = useState<PricingFields>(EXAMPLE_INPUT);
   const [scenarios, setScenarios] = useState<ScenarioDTO[]>([]);
@@ -73,7 +73,7 @@ export function Calculator({ onUnauthorized }: CalculatorProps) {
     return () => {
       cancelled = true;
     };
-  }, [onUnauthorized]);
+  }, [api, onUnauthorized]);
 
   function setField(key: keyof PricingFields) {
     return (value: number | null) => {

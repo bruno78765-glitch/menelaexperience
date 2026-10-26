@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Método Essência">
+  <rect width="32" height="32" rx="8" fill="#4C0E2B"/>
+  <path d="M16 7.2l1.35 3.7 3.85.18-3.02 2.45 1.05 3.77L16 15.2l-3.23 2.1 1.05-3.77-3.02-2.45 3.85-.18L16 7.2z" fill="#D9B07E"/>
+  <path d="M10 22.2h12" stroke="#F4E3C9" stroke-width="1.4" stroke-linecap="round"/>
+</svg>

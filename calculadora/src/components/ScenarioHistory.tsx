@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Download } from 'lucide-react';
-import { formatBRL } from '@/lib/pricing.ts';
-import type { ScenarioDTO } from '@/lib/types.ts';
+import { formatBRL } from '../lib/pricing.ts';
+import type { ScenarioDTO } from '../lib/types.ts';
 
 type ScenarioHistoryProps = {
   scenarios: ScenarioDTO[];

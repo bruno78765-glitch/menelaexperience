@@ -20,7 +20,7 @@ export function NumberField({ id, label, value, min, max, help, error, onChange 
 
   return (
     <div>
-      <label htmlFor={id} className="block text-xs font-semibold text-essence-dark/80 mb-1">
+      <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-creme-50">
         {label}
       </label>
       <input
@@ -41,13 +41,13 @@ export function NumberField({ id, label, value, min, max, help, error, onChange 
           if (parsed === 'partial') return;
           onChange(parsed === null ? null : clampNumber(parsed, min, max));
         }}
-        className="w-full bg-essence-cream/60 border border-essence-gold/50 rounded-lg px-3 py-2.5 text-sm text-essence-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-essence-wine"
+        className="input-lux"
       />
-      <p id={helpId} className="text-[11px] leading-snug text-gray-600 mt-1">
+      <p id={helpId} className="mt-1.5 text-xs leading-snug text-creme-200/55">
         {help}
       </p>
       {error ? (
-        <p id={errorId} role="alert" className="text-xs font-medium text-red-800 mt-1">
+        <p id={errorId} role="alert" className="mt-1 text-xs font-medium text-red-200">
           {error}
         </p>
       ) : null}
@@ -68,7 +68,7 @@ export function TextField({ id, label, value, maxLength, help, onChange }: TextF
   const helpId = `${id}-ajuda`;
   return (
     <div>
-      <label htmlFor={id} className="block text-xs font-semibold text-essence-dark/80 mb-1">
+      <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-creme-50">
         {label}
       </label>
       <input
@@ -78,9 +78,9 @@ export function TextField({ id, label, value, maxLength, help, onChange }: TextF
         maxLength={maxLength}
         aria-describedby={helpId}
         onChange={(event) => onChange(event.target.value)}
-        className="w-full bg-essence-cream/60 border border-essence-gold/50 rounded-lg px-3 py-2.5 text-sm text-essence-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-essence-wine"
+        className="input-lux"
       />
-      <p id={helpId} className="text-[11px] leading-snug text-gray-600 mt-1">
+      <p id={helpId} className="mt-1.5 text-xs leading-snug text-creme-200/55">
         {help}
       </p>
     </div>

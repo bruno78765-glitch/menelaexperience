@@ -1,6 +1,6 @@
 # Repositório
 
-A calculadora e o hub Essência compartilham um projeto Supabase, `rbgpdetmnnspgcesneva`. A mesma conta entra nos dois. No hub, a calculadora e a ficha de avaliação e protocolos aparecem no menu, como uma área da mentorada. Diagnóstico e cenários gravam em tabelas separadas (`essencia_diagnosticos` e `cenarios`), com RLS separado. A ficha de protocolos não grava atendimento. O site do evento continua na raiz e não usa esse banco.
+A calculadora e o hub Essência compartilham um projeto Supabase, `rbgpdetmnnspgcesneva`. A mesma conta entra nos dois. No hub, a calculadora abre direto no menu, no mesmo visual da área, e a ficha de avaliação e protocolos também fica nesse menu. Diagnóstico e cenários gravam em tabelas separadas (`essencia_diagnosticos` e `cenarios`), com RLS separado. A ficha de protocolos não grava atendimento. O site do evento continua na raiz e não usa esse banco.
 
 ## Calculadora de Precificação (Método Essence)
 

@@ -23,24 +23,24 @@ export function ScenarioHistory({
   const [pendingDelete, setPendingDelete] = useState<string | null>(null);
 
   return (
-    <section className="no-print bg-white rounded-xl p-6 shadow-sm border border-essence-gold/20" aria-labelledby="historico-titulo">
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-        <h2 id="historico-titulo" className="text-lg font-semibold text-essence-dark flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-essence-gold" aria-hidden="true" />
+    <section className="no-print glass rounded-2xl p-6" aria-labelledby="historico-titulo">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <h2 id="historico-titulo" className="flex items-center gap-2 font-display text-xl text-creme-50">
+          <span className="h-2 w-2 rounded-full bg-champagne-500" aria-hidden="true" />
           Seus cenários
         </h2>
         <button
           type="button"
           onClick={onExport}
           disabled={scenarios.length === 0}
-          className="text-xs font-semibold text-essence-wine border border-essence-wine/30 rounded-lg px-3 py-2 disabled:opacity-40 inline-flex items-center gap-1.5"
+          className="btn-ghost px-3 py-2 text-xs disabled:opacity-40"
         >
           <Download size={14} aria-hidden="true" />
           Exportar histórico (CSV)
         </button>
       </div>
       {scenarios.length === 0 ? (
-        <p className="text-sm text-gray-600">Nenhum cenário salvo ainda. Dê um nome ao procedimento e salve.</p>
+        <p className="text-sm text-creme-200/65">Nenhum cenário salvo ainda. Dê um nome ao procedimento e salve.</p>
       ) : (
         <ul className="space-y-3" data-testid="scenario-list">
           {scenarios.map((scenario) => {
@@ -48,22 +48,22 @@ export function ScenarioHistory({
               new Date(scenario.createdAt),
             );
             return (
-              <li key={scenario.id} className="border border-essence-gold/30 rounded-lg p-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <li key={scenario.id} className="flex flex-col gap-2 rounded-xl border border-champagne-500/25 bg-essencia-900/30 p-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p className="font-semibold text-essence-dark text-sm">{scenario.nomeProcedimento}</p>
-                  <p className="text-xs text-gray-600">
+                  <p className="text-sm font-semibold text-creme-50">{scenario.nomeProcedimento}</p>
+                  <p className="text-xs text-creme-200/60">
                     {when} · sugerido {formatBRL(scenario.precoSugerido)} · custo {formatBRL(scenario.custoTotal)}
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  <button type="button" onClick={() => onLoad(scenario)} className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-essence-dark text-essence-cream">
+                  <button type="button" onClick={() => onLoad(scenario)} className="rounded-lg bg-champagne-500 px-3 py-1.5 text-xs font-semibold text-essencia-900">
                     Carregar
                   </button>
                   <button
                     type="button"
                     aria-pressed={compareId === scenario.id}
                     onClick={() => onCompare(scenario)}
-                    className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-essence-gold text-essence-dark"
+                    className="rounded-lg border border-champagne-500/50 px-3 py-1.5 text-xs font-semibold text-creme-50"
                   >
                     {compareId === scenario.id ? 'Comparando' : 'Comparar'}
                   </button>
@@ -75,16 +75,16 @@ export function ScenarioHistory({
                           onDelete(scenario.id);
                           setPendingDelete(null);
                         }}
-                        className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-red-800 text-white"
+                        className="rounded-lg bg-red-800 px-3 py-1.5 text-xs font-semibold text-white"
                       >
                         Confirmar exclusão
                       </button>
-                      <button type="button" onClick={() => setPendingDelete(null)} className="text-xs px-3 py-1.5 rounded-lg border border-gray-300">
+                      <button type="button" onClick={() => setPendingDelete(null)} className="rounded-lg border border-creme-200/30 px-3 py-1.5 text-xs text-creme-100">
                         Cancelar
                       </button>
                     </>
                   ) : (
-                    <button type="button" onClick={() => setPendingDelete(scenario.id)} className="text-xs font-semibold px-3 py-1.5 rounded-lg text-red-800">
+                    <button type="button" onClick={() => setPendingDelete(scenario.id)} className="rounded-lg px-3 py-1.5 text-xs font-semibold text-red-200">
                       Excluir
                     </button>
                   )}

@@ -184,7 +184,7 @@ export default function App() {
             {modulo === 'calendario' && <Calendario nicho={nicho} onConfigurar={() => navegar('dashboard')} />}
             {modulo === 'estudio' && <Estudio nicho={nicho} />}
             {modulo === 'vendas' && <Vendas nicho={nicho} />}
-            {modulo === 'precificacao' && <Precificacao onSair={() => void auth.sair()} />}
+            {modulo === 'precificacao' && <Precificacao />}
             {modulo === 'protocolos' && <Protocolos />}
             {modulo === 'suporte' && <Suporte onNavegar={navegar} />}
             <footer className="no-print mt-12 border-t border-essencia-500/20 pt-6 text-center text-xs text-creme-200/40">

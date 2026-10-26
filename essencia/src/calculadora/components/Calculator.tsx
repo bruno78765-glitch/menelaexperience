@@ -18,7 +18,7 @@ import { ScenarioHistory } from './ScenarioHistory.tsx';
 
 type CalculatorProps = {
   api: Api;
-  onUnauthorized: () => void;
+  onUnauthorized?: () => void;
 };
 
 function downloadText(filename: string, content: string): void {
@@ -64,7 +64,7 @@ export function Calculator({ api, onUnauthorized }: CalculatorProps) {
       })
       .catch((caught: unknown) => {
         if (cancelled) return;
-        if (caught instanceof ApiError && caught.status === 401) {
+        if (caught instanceof ApiError && caught.status === 401 && onUnauthorized) {
           onUnauthorized();
           return;
         }
@@ -103,7 +103,7 @@ export function Calculator({ api, onUnauthorized }: CalculatorProps) {
       setScenarios((current) => [scenario, ...current]);
       setStatus(`Cenário “${scenario.nomeProcedimento}” salvo no seu histórico.`);
     } catch (caught) {
-      if (caught instanceof ApiError && caught.status === 401) {
+      if (caught instanceof ApiError && caught.status === 401 && onUnauthorized) {
         onUnauthorized();
         return;
       }
@@ -120,7 +120,7 @@ export function Calculator({ api, onUnauthorized }: CalculatorProps) {
       setScenarios((current) => current.filter((scenario) => scenario.id !== id));
       if (compareId === id) setCompareId(null);
     } catch (caught) {
-      if (caught instanceof ApiError && caught.status === 401) {
+      if (caught instanceof ApiError && caught.status === 401 && onUnauthorized) {
         onUnauthorized();
         return;
       }
@@ -138,12 +138,12 @@ export function Calculator({ api, onUnauthorized }: CalculatorProps) {
 
   return (
     <div className="space-y-6">
-      <section className="bg-white border border-essence-gold/30 rounded-xl p-5 shadow-sm">
-        <h2 className="text-base font-semibold text-essence-dark flex items-center gap-2">
-          <Info size={16} aria-hidden="true" className="text-essence-wine" />
+      <section className="glass-soft rounded-2xl p-5">
+        <h2 className="flex items-center gap-2 font-display text-xl text-creme-50">
+          <Info size={16} aria-hidden="true" className="text-champagne-500" />
           Pró-labore e margem não são a mesma coisa
         </h2>
-        <p className="text-sm text-gray-700 mt-2 leading-relaxed">
+        <p className="mt-2 text-sm leading-relaxed text-creme-200/75">
           A remuneração mensal desejada vira a hora técnica e entra no custo do atendimento como pró-labore, junto com
           produtos e despesas fixas. A margem de lucro é aplicada depois, por cima desse custo. O pró-labore paga o seu
           tempo; a margem é o lucro do negócio.
@@ -152,9 +152,9 @@ export function Calculator({ api, onUnauthorized }: CalculatorProps) {
 
       <div className="calc-layout grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="no-print lg:col-span-2 space-y-6 order-2 lg:order-1">
-          <section className="no-print bg-white rounded-xl p-6 shadow-sm border border-essence-gold/20">
-            <h2 className="text-lg font-semibold text-essence-dark mb-4 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-essence-gold" aria-hidden="true" />
+          <section className="no-print glass rounded-2xl p-6">
+            <h2 className="mb-4 flex items-center gap-2 font-display text-xl text-creme-50">
+              <span className="h-2 w-2 rounded-full bg-champagne-500" aria-hidden="true" />
               1. Procedimento, custos e tempo
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -222,15 +222,15 @@ export function Calculator({ api, onUnauthorized }: CalculatorProps) {
               />
             </div>
             {input.taxasVariaveis !== null && input.margemLucro !== null ? (
-              <p className="text-xs text-gray-600 mt-3">
+              <p className="mt-3 text-xs text-creme-200/60">
                 Taxas + margem = {(input.taxasVariaveis + input.margemLucro).toLocaleString('pt-BR', { maximumFractionDigits: 2 })}%.
               </p>
             ) : null}
           </section>
 
-          <section className="no-print bg-white rounded-xl p-6 shadow-sm border border-essence-gold/20">
-            <h2 className="text-lg font-semibold text-essence-dark mb-4 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-essence-gold" aria-hidden="true" />
+          <section className="no-print glass rounded-2xl p-6">
+            <h2 className="mb-4 flex items-center gap-2 font-display text-xl text-creme-50">
+              <span className="h-2 w-2 rounded-full bg-champagne-500" aria-hidden="true" />
               2. Remuneração e tempo de execução
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -267,12 +267,12 @@ export function Calculator({ api, onUnauthorized }: CalculatorProps) {
             </div>
           </section>
 
-          <section className="no-print bg-white rounded-xl p-6 shadow-sm border border-essence-gold/20">
-            <h2 className="text-lg font-semibold text-essence-dark mb-2 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-essence-gold" aria-hidden="true" />
+          <section className="no-print glass rounded-2xl p-6">
+            <h2 className="mb-2 flex items-center gap-2 font-display text-xl text-creme-50">
+              <span className="h-2 w-2 rounded-full bg-champagne-500" aria-hidden="true" />
               3. Simulador de defesa de preço
             </h2>
-            <p className="text-xs text-gray-600 mb-4">Teste o desconto antes de ceder. O limite deste simulador é 50%.</p>
+            <p className="mb-4 text-xs text-creme-200/60">Teste o desconto antes de ceder. O limite deste simulador é 50%.</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
               <NumberField
                 id="percentualDesconto"
@@ -285,14 +285,14 @@ export function Calculator({ api, onUnauthorized }: CalculatorProps) {
                 onChange={setField('percentualDesconto')}
               />
               <div
-                className={`p-3 rounded-lg border ${discountUnhealthy ? 'bg-red-50 border-red-400' : 'bg-essence-cream border-essence-gold/40'}`}
+                className={`rounded-xl border p-3 ${discountUnhealthy ? 'border-red-300/40 bg-red-950/40' : 'border-champagne-500/30 bg-champagne-500/10'}`}
               >
-                <span className="text-xs text-gray-700 block">Preço com desconto</span>
-                <span data-testid="discount-price" className={`text-lg font-bold ${discountUnhealthy ? 'text-red-900' : 'text-essence-dark'}`}>
+                <span className="block text-xs text-creme-200/70">Preço com desconto</span>
+                <span data-testid="discount-price" className={`font-display text-2xl font-semibold ${discountUnhealthy ? 'text-red-100' : 'text-creme-50'}`}>
                   {discountPrice}
                 </span>
                 {discountUnhealthy ? (
-                  <p className="text-xs font-semibold text-red-900 mt-2">
+                  <p className="mt-2 text-xs font-semibold text-red-100">
                     Este valor não é um preço saudável. O diagnóstico explica a margem efetiva.
                   </p>
                 ) : null}
@@ -303,25 +303,25 @@ export function Calculator({ api, onUnauthorized }: CalculatorProps) {
                 type="button"
                 onClick={() => void onSave()}
                 disabled={saving}
-                className="bg-essence-dark text-essence-cream text-sm font-semibold rounded-xl px-4 py-2.5 disabled:opacity-50"
+                className="btn-gold px-4 py-2.5 text-sm disabled:opacity-50"
               >
                 {saving ? 'Salvando…' : 'Salvar cenário'}
               </button>
               <button
                 type="button"
                 onClick={() => setInput(EXAMPLE_INPUT)}
-                className="text-sm font-semibold rounded-xl px-4 py-2.5 border border-essence-gold text-essence-dark"
+                className="btn-ghost px-4 py-2.5 text-sm"
               >
                 Restaurar valores de exemplo
               </button>
             </div>
             {status ? (
-              <p role="status" className="text-sm text-essence-wine mt-3">
+              <p role="status" className="mt-3 text-sm text-champagne-400">
                 {status}
               </p>
             ) : null}
             {error ? (
-              <p role="alert" className="text-sm text-red-800 mt-3">
+              <p role="alert" className="mt-3 text-sm text-red-200">
                 {error}
               </p>
             ) : null}

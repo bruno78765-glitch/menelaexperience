@@ -4,7 +4,7 @@ import { AlertTriangle } from 'lucide-react';
 export function ResultAlerts({ result }: { result: PricingResult }) {
   if (!result.ok) {
     return (
-      <div role="alert" data-testid="formula-error" className="alert rounded-lg border border-red-300 bg-red-50 p-3 text-xs text-red-900 space-y-2">
+      <div role="alert" data-testid="formula-error" className="alert space-y-2 rounded-xl border border-red-300/40 bg-red-950/40 p-3 text-xs text-red-100">
         {result.errors.map((error) => (
           <p key={error.code}>{error.message}</p>
         ))}
@@ -16,7 +16,7 @@ export function ResultAlerts({ result }: { result: PricingResult }) {
 
   if (result.abaixoDoCusto) {
     return (
-      <div role="alert" data-testid="below-cost-alert" className="alert rounded-lg border border-red-400 bg-red-50 p-3 text-xs text-red-950">
+      <div role="alert" data-testid="below-cost-alert" className="alert rounded-xl border border-red-300/40 bg-red-950/40 p-3 text-xs text-red-100">
         <p className="font-bold flex items-center gap-1.5 mb-1">
           <AlertTriangle size={14} aria-hidden="true" />
           Preço abaixo do custo
@@ -32,7 +32,7 @@ export function ResultAlerts({ result }: { result: PricingResult }) {
 
   if (result.margemEfetivaNegativa) {
     return (
-      <div role="alert" data-testid="negative-margin-alert" className="alert rounded-lg border border-red-400 bg-red-50 p-3 text-xs text-red-950">
+      <div role="alert" data-testid="negative-margin-alert" className="alert rounded-xl border border-red-300/40 bg-red-950/40 p-3 text-xs text-red-100">
         <p className="font-bold flex items-center gap-1.5 mb-1">
           <AlertTriangle size={14} aria-hidden="true" />
           Taxas não cabem neste desconto
@@ -46,8 +46,8 @@ export function ResultAlerts({ result }: { result: PricingResult }) {
   }
 
   return (
-    <div role="status" data-testid="discount-impact" className="alert rounded-lg border border-essence-gold/50 bg-essence-cream p-3 text-xs text-essence-dark">
-      <p className="font-bold flex items-center gap-1.5 mb-1 text-essence-wine">
+    <div role="status" data-testid="discount-impact" className="alert rounded-xl border border-champagne-500/40 bg-champagne-500/10 p-3 text-xs text-creme-50">
+      <p className="mb-1 flex items-center gap-1.5 font-bold text-champagne-400">
         <AlertTriangle size={14} aria-hidden="true" />
         Impacto do desconto
       </p>

@@ -19,7 +19,7 @@ export function Diagnosis({ nome, input, result, comparison, onExport }: Diagnos
   const price = result.ok ? money(result.precoSugerido) : '—';
 
   return (
-    <aside className="report-sheet bg-essence-dark text-white rounded-2xl p-6 shadow-lg border border-essence-gold/40 lg:sticky lg:top-6">
+    <aside className="report-sheet glass rounded-2xl p-6 shadow-glow lg:sticky lg:top-6">
       <p className="print-only text-xs uppercase tracking-widest mb-1">Relatório de precificação · Método Essence</p>
       <p className="print-only text-sm font-semibold mb-4">
         {nome.trim() || 'Procedimento sem nome'} · {today}
@@ -63,26 +63,26 @@ export function Diagnosis({ nome, input, result, comparison, onExport }: Diagnos
         </tbody>
       </table>
 
-      <h2 className="text-sm uppercase tracking-widest text-essence-goldSoft font-semibold mb-4 border-b border-white/10 pb-2">
+      <h2 className="mb-4 border-b border-champagne-500/30 pb-2 text-sm font-semibold uppercase tracking-widest text-champagne-500">
         Diagnóstico de precificação
       </h2>
 
       <div className="space-y-4">
         <div>
-          <span className="text-xs text-essence-goldSoft block">Hora técnica</span>
-          <span className="text-xl font-medium text-essence-cream">
+          <span className="block text-xs text-creme-200/60">Hora técnica</span>
+          <span className="font-display text-2xl text-creme-50">
             {result.ok ? `${money(result.horaTecnica)} /h` : '—'}
           </span>
         </div>
         <div>
-          <span className="text-xs text-essence-goldSoft block">Custo total (materiais + fixos + pró-labore)</span>
-          <span className="text-xl font-medium text-essence-cream">
+          <span className="block text-xs text-creme-200/60">Custo total (materiais + fixos + pró-labore)</span>
+          <span className="font-display text-2xl text-creme-50">
             {result.ok ? money(result.custoTotalAtendimento) : '—'}
           </span>
         </div>
 
         <div className="pt-2">
-          <h3 className="text-xs uppercase tracking-wider text-essence-goldSoft font-bold mb-2">Composição do preço</h3>
+          <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-champagne-500">Composição do preço</h3>
           <table className="w-full text-sm">
             <caption className="sr-only">Composição do preço sugerido</caption>
             <tbody>
@@ -93,20 +93,20 @@ export function Diagnosis({ nome, input, result, comparison, onExport }: Diagnos
               <Breakdown label="Lucro da margem" value={result.ok ? money(result.lucroValor) : '—'} />
             </tbody>
           </table>
-          <p className="text-[11px] text-essence-cream/70 mt-2">
+          <p className="mt-2 text-[11px] text-creme-200/60">
             O pró-labore remunera o seu tempo e já está dentro do custo. A margem é o lucro do negócio, calculada por
             cima desse custo.
           </p>
         </div>
 
-        <div className="pt-4 border-t border-white/10">
-          <span className="text-xs uppercase tracking-wider text-essence-gold font-bold block mb-1">
+        <div className="border-t border-champagne-500/30 pt-4">
+          <span className="mb-1 block text-xs font-bold uppercase tracking-wider text-champagne-500">
             Preço sugerido de referência
           </span>
-          <p data-testid="suggested-price" aria-live="polite" className="text-3xl font-extrabold text-essence-gold">
+          <p data-testid="suggested-price" aria-live="polite" className="font-display text-4xl font-semibold text-champagne-400">
             {price}
           </p>
-          <p className="text-[11px] text-essence-cream/70 mt-1">
+          <p className="mt-1 text-[11px] text-creme-200/60">
             {result.ok
               ? 'Cobre materiais, despesas fixas, pró-labore, taxas e a margem desejada.'
               : 'O preço sugerido só aparece quando a fórmula é viável.'}
@@ -116,12 +116,12 @@ export function Diagnosis({ nome, input, result, comparison, onExport }: Diagnos
         <ResultAlerts result={result} />
 
         {comparison ? (
-          <div className="rounded-lg border border-white/15 p-3 text-xs">
-            <h3 className="font-semibold text-essence-goldSoft mb-2">Comparando com {comparison.nome}</h3>
+          <div className="rounded-xl border border-champagne-500/25 bg-essencia-900/30 p-3 text-xs text-creme-100">
+            <h3 className="mb-2 font-semibold text-champagne-400">Comparando com {comparison.nome}</h3>
             <table className="w-full">
               <caption className="sr-only">Cenário atual e cenário salvo</caption>
               <thead>
-                <tr className="text-essence-cream/70">
+                <tr className="text-creme-200/60">
                   <th scope="col" className="text-left font-normal py-1">Indicador</th>
                   <th scope="col" className="text-right font-normal py-1">Atual</th>
                   <th scope="col" className="text-right font-normal py-1">Salvo</th>
@@ -154,11 +154,11 @@ export function Diagnosis({ nome, input, result, comparison, onExport }: Diagnos
         ) : null}
       </div>
 
-      <div className="no-print mt-8 pt-4 border-t border-white/10 grid grid-cols-1 gap-2">
+      <div className="no-print mt-8 grid grid-cols-1 gap-2 border-t border-champagne-500/30 pt-4">
         <button
           type="button"
           onClick={() => window.print()}
-          className="w-full bg-essence-gold text-essence-dark font-semibold py-3 px-4 rounded-xl text-sm hover:bg-[#e6c395] flex items-center justify-center gap-2"
+          className="btn-gold w-full py-3 text-sm"
         >
           <Printer size={16} aria-hidden="true" />
           Imprimir / salvar PDF
@@ -167,7 +167,7 @@ export function Diagnosis({ nome, input, result, comparison, onExport }: Diagnos
           type="button"
           onClick={onExport}
           disabled={!result.ok}
-          className="w-full border border-essence-gold/50 text-essence-cream font-semibold py-3 px-4 rounded-xl text-sm hover:bg-white/5 disabled:opacity-40 flex items-center justify-center gap-2"
+          className="btn-ghost w-full py-3 text-sm disabled:opacity-40"
         >
           <Download size={16} aria-hidden="true" />
           Exportar CSV
@@ -180,10 +180,10 @@ export function Diagnosis({ nome, input, result, comparison, onExport }: Diagnos
 function Breakdown({ label, value }: { label: string; value: string }) {
   return (
     <tr className="border-b border-white/5">
-      <th scope="row" className="text-left font-normal text-essence-cream/80 py-1.5">
+      <th scope="row" className="py-1.5 text-left font-normal text-creme-200/80">
         {label}
       </th>
-      <td className="text-right text-essence-cream py-1.5">{value}</td>
+      <td className="py-1.5 text-right text-creme-50">{value}</td>
     </tr>
   );
 }

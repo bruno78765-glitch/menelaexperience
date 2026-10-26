@@ -40,7 +40,7 @@ export const BASE_CONHECIMENTO: RespostaBot[] = [
   {
     palavrasChave: ['precificacao', 'precificar', 'preco', 'cenario', 'prolabore', 'pro-labore', 'viabilidade', 'calcular o preco'],
     resposta:
-      'A calculadora de preço está no menu, na mesma conta. Ela forma o preço do atendimento com pró-labore dentro do custo e margem por cima. Os cenários salvos aparecem só para quem entrou.',
+      'A calculadora de preço abre no menu, na mesma tela e na mesma conta. Ela forma o preço do atendimento com pró-labore dentro do custo e margem por cima. Os cenários salvos aparecem só para quem entrou.',
     acao: { label: 'Abrir calculadora', modulo: 'precificacao' },
   },
   {

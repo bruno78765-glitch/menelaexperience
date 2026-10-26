@@ -2,7 +2,7 @@
 
 Área da mentorada: diagnóstico, calendário de 30 dias, estúdio, treinador de vendas, calculadora de preço, ficha de avaliação e suporte. Cada pessoa entra com o próprio e-mail e a própria senha. O diagnóstico e os cenários de preço ficam na conta dela.
 
-Esta pasta substitui os zips do Bolt. A calculadora está em `src/calculadora` e a ficha de avaliação e protocolos em `src/protocolo`. As duas aparecem no menu, com a mesma conta. A pasta `calculadora/` na raiz do repositório continua abrindo a calculadora sozinha. A ficha não grava atendimento no banco: ela monta o plano na hora, imprime o laudo e abre o resumo no WhatsApp do telefone preenchido. O site da Menela Experience continua na raiz.
+Esta pasta substitui os zips do Bolt. A calculadora está em `src/calculadora` e a ficha de avaliação e protocolos em `src/protocolo`. As duas aparecem no menu, com a mesma conta. Clicar em Calculadora abre o cálculo nesta tela, no visual da área da mentorada, sem outro login. A pasta `calculadora/` na raiz continua existindo para quem abrir esse projeto sozinho. A ficha não grava atendimento no banco: ela monta o plano na hora, imprime o laudo e abre o resumo no WhatsApp do telefone preenchido. O site da Menela Experience continua na raiz.
 
 ## O que você precisa fazer no Supabase
 

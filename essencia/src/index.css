@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -116,6 +116,16 @@
   .scrollbar-lux::-webkit-scrollbar-thumb:hover {
     background: rgba(217, 176, 126, 0.6);
   }
+  .gradient-wine {
+    background-image: linear-gradient(135deg, #7a2142 0%, #4c0e2b 100%);
+  }
+  .scrollbar-luxe::-webkit-scrollbar {
+    width: 8px;
+  }
+  .scrollbar-luxe::-webkit-scrollbar-thumb {
+    background: #d9b07e;
+    border-radius: 9999px;
+  }
   .gold-text {
     background: linear-gradient(
       100deg,
@@ -174,6 +184,14 @@
   .report-sheet .alert {
     background: #fff !important;
     border: 1px solid #991b1b !important;
+  }
+
+  .print-area {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
   }
 
   @page {

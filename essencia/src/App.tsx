@@ -10,6 +10,7 @@ import { Estudio } from '@/modules/Estudio';
 import { Vendas } from '@/modules/Vendas';
 import { Suporte } from '@/modules/Suporte';
 import { Precificacao } from '@/modules/Precificacao';
+import { Protocolos } from '@/modules/Protocolos';
 import { AuthScreen, RedefinirSenha } from '@/modules/Auth';
 
 function Brand() {
@@ -184,6 +185,7 @@ export default function App() {
             {modulo === 'estudio' && <Estudio nicho={nicho} />}
             {modulo === 'vendas' && <Vendas nicho={nicho} />}
             {modulo === 'precificacao' && <Precificacao onSair={() => void auth.sair()} />}
+            {modulo === 'protocolos' && <Protocolos />}
             {modulo === 'suporte' && <Suporte onNavegar={navegar} />}
             <footer className="no-print mt-12 border-t border-essencia-500/20 pt-6 text-center text-xs text-creme-200/40">
               Método Essência · Área da mentorada

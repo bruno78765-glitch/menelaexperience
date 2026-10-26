@@ -44,6 +44,12 @@ export const BASE_CONHECIMENTO: RespostaBot[] = [
     acao: { label: 'Abrir calculadora', modulo: 'precificacao' },
   },
   {
+    palavrasChave: ['anamnese', 'protocolo', 'protocolos', 'ficha', 'laudo', 'homecare', 'home care', 'plano de cuidados'],
+    resposta:
+      'A ficha de avaliação está no menu Protocolos. São quatro etapas: dados, anamnese, queixa e plano de cuidados. No final dá para imprimir o laudo ou abrir o resumo no WhatsApp do telefone preenchido na ficha. Essa ficha vale para o atendimento aberto agora.',
+    acao: { label: 'Abrir protocolos', modulo: 'protocolos' },
+  },
+  {
     palavrasChave: ['humano', 'atendente', 'mentor', 'suporte', 'falar com', 'whatsapp'],
     resposta:
       'Eu só respondo dúvidas sobre os módulos do sistema. O contato da equipe não fica neste aplicativo.',
@@ -51,9 +57,9 @@ export const BASE_CONHECIMENTO: RespostaBot[] = [
   {
     palavrasChave: ['ola', 'oi', 'bom dia', 'boa tarde', 'boa noite'],
     resposta:
-      'Olá. Eu respondo sobre calendário, estúdio, vendas, diagnóstico e calculadora de preço. O que você precisa?',
+      'Olá. Eu respondo sobre calendário, estúdio, vendas, diagnóstico, calculadora de preço e ficha de avaliação. O que você precisa?',
   },
 ];
 
 export const MENSAGEM_INICIAL =
-  'Olá. Eu respondo dúvidas sobre calendário, conteúdo, vendas, diagnóstico e calculadora de preço.';
+  'Olá. Eu respondo dúvidas sobre calendário, conteúdo, vendas, diagnóstico, calculadora de preço e ficha de avaliação.';

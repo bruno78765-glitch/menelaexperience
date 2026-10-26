@@ -1,6 +1,6 @@
 export interface AcaoBot {
   label: string;
-  modulo: 'dashboard' | 'calendario' | 'estudio' | 'vendas' | 'precificacao' | 'suporte';
+  modulo: 'dashboard' | 'calendario' | 'estudio' | 'vendas' | 'precificacao' | 'protocolos' | 'suporte';
 }
 
 export interface RespostaBot {

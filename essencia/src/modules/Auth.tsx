@@ -105,7 +105,7 @@ export function AuthScreen({
       <section className="glass rounded-2xl p-6 shadow-card">
         <h1 className="font-display text-3xl text-creme-50">{titulo}</h1>
         <p className="mt-2 text-sm text-creme-200/70">
-          Uma conta abre o diagnóstico, o calendário, o estúdio, as vendas e a calculadora de preço. O que você gravar fica só na sua conta.
+          Uma conta abre o diagnóstico, o calendário, o estúdio, as vendas, a calculadora de preço e a ficha de avaliação. O que você gravar fica só na sua conta.
         </p>
         <div className="mt-5 grid grid-cols-3 gap-2" role="tablist" aria-label="Forma de acesso">
           {(

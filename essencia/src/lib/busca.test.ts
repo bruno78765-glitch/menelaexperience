@@ -20,4 +20,6 @@ test('quando dois módulos casam, vence o mais específico', () => {
   equal(moduloDe('como responder está caro'), 'vendas');
   equal(moduloDe('quero precificar um atendimento'), 'precificacao');
   equal(moduloDe('como calcular o preço'), 'precificacao');
+  equal(moduloDe('quero montar a anamnese'), 'protocolos');
+  equal(moduloDe('como gero o plano de cuidados'), 'protocolos');
 });

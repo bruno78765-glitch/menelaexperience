@@ -152,6 +152,7 @@ export function Suporte({ onNavegar }: { onNavegar: (id: string) => void }) {
                 { label: 'Estúdio de conteúdo', modulo: 'estudio' },
                 { label: 'Treinador de vendas', modulo: 'vendas' },
                 { label: 'Calculadora de preço', modulo: 'precificacao' },
+                { label: 'Avaliação e protocolos', modulo: 'protocolos' },
               ].map((atalho) => (
                 <button
                   key={atalho.modulo}

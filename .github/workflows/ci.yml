@@ -6,6 +6,22 @@ on:
   pull_request:
 
 jobs:
+  asterion:
+    name: Asterion 3D (typecheck, lint, test, build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+
   calculadora:
     name: Calculadora (typecheck, lint, test, build)
     runs-on: ubuntu-latest
@@ -13,7 +29,6 @@ jobs:
       run:
         working-directory: calculadora
     env:
-      # Valores públicos (chave anon). O build só precisa deles para embutir no bundle.
       VITE_SUPABASE_URL: https://rbgpdetmnnspgcesneva.supabase.co
       VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJiZ3BkZXRtbm5zcGdjZXNuZXZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3ODEwNDAsImV4cCI6MjEwODM1NzA0MH0.gsnNpYtB_mBZGP-KK95Y495FCcs1Tr5EPzrcTjo4SBU
     steps:

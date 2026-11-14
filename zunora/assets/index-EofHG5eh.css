@@ -1257,7 +1257,7 @@ body {
 }
 .ig-av {
   background:
-    url(./favicon.svg) 50%/55% no-repeat,
+    url(../favicon.svg) 50%/55% no-repeat,
     #5a1430;
   border-radius: 50%;
   width: 15cqw;
@@ -11846,6 +11846,42 @@ img.dn-bol {
 .cena.ativa .wa2-dig {
   animation-delay: calc(var(--d) + 0.15s);
 }
+
+.ig-aba-t {
+  color: #2a0e1699;
+}
+.cl-linha small {
+  color: #7d521d;
+}
+@media (width<=760px) {
+  .ig-abas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    width: 100%;
+  }
+  .ig-abas button {
+    text-align: center;
+    padding: 10px 12px;
+  }
+}
+
+.fecho-in {
+  z-index: 2;
+  pointer-events: none;
+  transition:
+    opacity 0.55s ease,
+    transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.fecho.revelando .fecho-in,
+.fecho.aberto .fecho-in {
+  opacity: 1;
+  transform: none;
+}
+.fecho.aberto .fecho-in {
+  pointer-events: auto;
+}
+
 
 
 

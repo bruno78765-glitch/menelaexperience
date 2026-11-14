@@ -23601,6 +23601,7 @@ function mc({ whats: e }) {
         y = g(1, 1),
         b = g(1, 1),
         x = g(1, 1),
+        z = g(1, 1),
         S = [],
         C = [],
         w = matchMedia(`(pointer: coarse)`).matches;
@@ -23637,8 +23638,8 @@ function mc({ whats: e }) {
           t.fillText(`Bora tirar a sua ideia`, s / 2, c * 0.44),
           (t.fillStyle = `#8A5A2B`),
           t.fillText(`do papel?`, s / 2, c * 0.44 + r * 1.1),
-          (t.fillStyle = `#8A6F5E`),
-          (t.font = `14px 'Instrument Sans', sans-serif`),
+          (t.fillStyle = `#6E5343`),
+          (t.font = `500 14px 'Instrument Sans', sans-serif`),
           t.fillText(
             w
               ? `role para tirar do papel`
@@ -23660,6 +23661,7 @@ function mc({ whats: e }) {
           (v = g(s * l, c * l)),
           (y = g(s * l, c * l)),
           (x = g(s * l, c * l)),
+          (z = g(s * l, c * l)),
           (b = g((s * l) / 5, (c * l) / 5)),
           (S.length = 0),
           [
@@ -23695,9 +23697,13 @@ function mc({ whats: e }) {
           e.drawImage(_, 0, 0),
           (e.globalCompositeOperation = `destination-out`),
           e.drawImage(y, 0, 0));
-        let t = g(x.width, x.height),
+        let t = z,
           n = t.getContext(`2d`);
-        (n.drawImage(y, 0, 0), (n.globalCompositeOperation = `source-in`));
+        (n.setTransform(1, 0, 0, 1, 0, 0),
+          (n.globalCompositeOperation = `source-over`),
+          n.clearRect(0, 0, t.width, t.height),
+          n.drawImage(y, 0, 0),
+          (n.globalCompositeOperation = `source-in`));
         let r = n.createLinearGradient(0, 0, t.width, t.height);
         (r.addColorStop(0, `#FFB347`),
           r.addColorStop(0.5, `#FFE3A0`),
@@ -23712,14 +23718,40 @@ function mc({ whats: e }) {
         (i.clearRect(0, 0, b.width, b.height),
           i.drawImage(t, 0, 0, b.width, b.height));
       }
+      let B = !1,
+        V = 0,
+        H = () => {
+          if (B || f) return;
+          ((B = !0), (p = !0), e.classList.add(`aberto`));
+          try {
+            ((a.currentTime = 4.8), a.play().catch(() => {}));
+          } catch {}
+          let t = performance.now(),
+            n = m,
+            r = () => {
+              !f &&
+                u &&
+                ((m = Math.max(
+                  m,
+                  Math.min(1, n + (performance.now() - t) / 620),
+                )),
+                requestAnimationFrame(r));
+            };
+          requestAnimationFrame(r);
+        };
       function j(t) {
         if (u) {
           if (!f) {
-            let n = Math.hypot(s, c) * 0.62,
-              r = m * m * (3 - 2 * m);
+            let n = Math.hypot(s, c) * 0.68,
+              r = Math.pow(m, 1.25);
             (p &&
+              m > 0 &&
               S.forEach(([e, i], a) =>
-                k(e + Math.sin(t / 400 + a) * 4, i, 6 + r * n * (1 - a * 0.06)),
+                k(
+                  e + Math.sin(t / 400 + a) * 4,
+                  i,
+                  24 + r * n * (1 - a * 0.05),
+                ),
               ),
               C.forEach(([e, t, n]) => k(e, t, n)),
               (C.length = 0),
@@ -23735,7 +23767,7 @@ function mc({ whats: e }) {
               (o.globalCompositeOperation = `source-over`),
               m >= 1 &&
                 ((f = !0),
-                (i.style.transition = `opacity .8s`),
+                (i.style.transition = `opacity .45s`),
                 (i.style.opacity = `0`),
                 e.classList.add(`aberto`)));
           }
@@ -23744,42 +23776,40 @@ function mc({ whats: e }) {
       }
       d = requestAnimationFrame(j);
       let M = () => {
-        let t = e.getBoundingClientRect(),
-          n = (innerHeight * 0.22 - t.top) / (innerHeight * 0.3);
-        if (n > 0 && !p) {
-          p = !0;
+        let t = e.getBoundingClientRect();
+        if (t.top < innerHeight * 0.65 && !p) {
+          ((p = !0), e.classList.add(`revelando`));
           try {
             ((a.currentTime = 4.8), a.play().catch(() => {}));
           } catch {}
         }
-        m = Math.max(m, Math.min(1, Math.max(0, n)));
+        if (t.top <= innerHeight * 0.12 && !B && !V) {
+          V = setTimeout(H, 1050);
+        }
       };
       (addEventListener(`scroll`, M, { passive: !0 }), M());
-      let N = (t) => {
-        if (f) return;
-        let n = e.getBoundingClientRect();
-        (C.push([t.clientX - n.left, t.clientY - n.top, w ? 26 : 34]),
-          p || M());
-      };
-      e.addEventListener(`pointermove`, N);
+      let U = 0,
+        N = (t) => {
+          if (f) return;
+          let n = e.getBoundingClientRect();
+          (C.push([t.clientX - n.left, t.clientY - n.top, w ? 30 : 38]),
+            p || M(),
+            e.classList.add(`revelando`),
+            U++,
+            U > 12 && H());
+        },
+        W = (t) => {
+          if (f) return;
+          let n = e.getBoundingClientRect();
+          n.top <= innerHeight * 0.35 && t.deltaY > 0 && H();
+        };
+      (e.addEventListener(`pointermove`, N),
+        e.addEventListener(`wheel`, W, { passive: !0 }));
       let P = new IntersectionObserver(
         ([e]) => {
-          if (e.intersectionRatio > 0.85 && !f) {
-            let e = performance.now(),
-              t = m,
-              n = () => {
-                !f &&
-                  u &&
-                  ((m = Math.max(
-                    m,
-                    Math.min(1, t + (performance.now() - e) / 1600),
-                  )),
-                  requestAnimationFrame(n));
-              };
-            setTimeout(n, 1400);
-          }
+          e.intersectionRatio > 0.7 && !B && !V && (V = setTimeout(H, 1050));
         },
-        { threshold: [0.85] },
+        { threshold: [0.7, 0.85] },
       );
       return (
         P.observe(e),
@@ -23788,11 +23818,13 @@ function mc({ whats: e }) {
         }),
         () => {
           ((u = !1),
+            clearTimeout(V),
             cancelAnimationFrame(d),
             D.disconnect(),
             P.disconnect(),
             removeEventListener(`scroll`, M),
-            e.removeEventListener(`pointermove`, N));
+            e.removeEventListener(`pointermove`, N),
+            e.removeEventListener(`wheel`, W));
         }
       );
     }, []),
@@ -27821,56 +27853,33 @@ function Bu() {
               {
                 yPercent: 0,
                 opacity: 1,
-                duration: 1.4,
+                duration: 1.1,
                 ease: `power4.out`,
-                scrollTrigger: { trigger: `.vt-cab`, start: `top 70%` },
-              },
-            ),
-            Vi.fromTo(
-              `.fx2-cont .r`,
-              { yPercent: 110 },
-              {
-                yPercent: 0,
-                stagger: 0.12,
-                duration: 1.2,
-                ease: `power4.out`,
-                scrollTrigger: { trigger: `.fx2-cont`, start: `top 55%` },
-              },
-            ),
-            Vi.fromTo(
-              `.fx2-cont .fx2-acoes`,
-              { opacity: 0, y: 30 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: 0.4,
-                ease: `power3.out`,
-                scrollTrigger: { trigger: `.fx2-cont`, start: `top 55%` },
+                scrollTrigger: { trigger: `.vt-cab`, start: `top 78%` },
               },
             ),
             Vi.fromTo(
               `.duo .cria`,
-              n ? { y: 40, opacity: 0 } : { xPercent: -12, opacity: 0 },
+              n ? { y: 40, opacity: 0 } : { xPercent: -8, opacity: 0 },
               {
                 y: 0,
                 xPercent: 0,
                 opacity: 1,
-                duration: 1.1,
+                duration: 0.95,
                 ease: `power3.out`,
-                scrollTrigger: { trigger: `.duo`, start: `top 80%` },
+                scrollTrigger: { trigger: `.duo`, start: `top 82%` },
               },
             ),
             Vi.fromTo(
               `.duo .tec`,
-              n ? { y: 40, opacity: 0 } : { xPercent: 12, opacity: 0 },
+              n ? { y: 40, opacity: 0 } : { xPercent: 8, opacity: 0 },
               {
                 y: 0,
                 xPercent: 0,
                 opacity: 1,
-                duration: 1.1,
+                duration: 0.95,
                 ease: `power3.out`,
-                scrollTrigger: { trigger: `.duo`, start: `top 80%` },
+                scrollTrigger: { trigger: `.duo`, start: `top 82%` },
               },
             ),
             Vi.fromTo(
@@ -27880,10 +27889,10 @@ function Bu() {
                 scale: 1,
                 opacity: 1,
                 rotate: 0,
-                duration: 1.2,
-                delay: 0.5,
+                duration: 1,
+                delay: 0.3,
                 ease: `back.out(1.6)`,
-                scrollTrigger: { trigger: `.duo`, start: `top 80%` },
+                scrollTrigger: { trigger: `.duo`, start: `top 82%` },
               },
             ),
             Q.sort(),
@@ -27895,15 +27904,19 @@ function Bu() {
         document.documentElement.style.overflow !== `hidden` &&
           scrollY > 10 &&
           l());
-      let u = document.querySelector(`.fx2-cont`),
+      let u = new Set(),
         d = new IntersectionObserver(
-          (e) =>
-            e.forEach((e) =>
-              c?.classList.toggle(`escondido`, e.isIntersecting),
+          (e) => {
+            (e.forEach((e) =>
+              e.isIntersecting ? u.add(e.target) : u.delete(e.target),
             ),
-          { threshold: 0.3 },
+              c?.classList.toggle(`escondido`, u.size > 0));
+          },
+          { threshold: 0.2 },
         );
-      u && d.observe(u);
+      document
+        .querySelectorAll(`.cl-cam, .fx2-cont`)
+        .forEach((e) => d.observe(e));
       let f = document.querySelector(`.fx-hist`),
         p = new IntersectionObserver(
           (e) =>

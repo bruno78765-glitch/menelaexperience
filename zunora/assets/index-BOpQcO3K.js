@@ -27700,7 +27700,7 @@ function Bu() {
               innerWidth > 760 &&
               Vi.fromTo(
                 a,
-                { rotateX: 32, rotateY: -28, rotateZ: 4, scale: 0.82, y: 90 },
+                { rotateX: 22, rotateY: -18, rotateZ: 2.5, scale: 0.88, y: 56 },
                 {
                   rotateX: 0,
                   rotateY: 0,
@@ -27710,21 +27710,24 @@ function Bu() {
                   ease: `power2.out`,
                   scrollTrigger: {
                     trigger: t,
-                    start: `top 80%`,
+                    start: `top 92%`,
                     endTrigger: i,
-                    end: `top 30%`,
-                    scrub: 0.8,
+                    end: `top 38%`,
+                    scrub: 0.55,
                   },
                 },
               );
-            let o = t.querySelector(`.cena-txt`);
+            let o = t.querySelector(`.cena-txt`),
+              u = 0,
+              d = 0,
+              f = 0;
             (o &&
               innerWidth > 760 &&
               Vi.fromTo(
                 o,
                 { y: 0 },
                 {
-                  y: -40,
+                  y: -32,
                   ease: `none`,
                   scrollTrigger: {
                     trigger: i,
@@ -27734,25 +27737,35 @@ function Bu() {
                   },
                 },
               ),
-              t.addEventListener(`pointermove`, (e) => {
-                let n = t.getBoundingClientRect();
-                (t.style.setProperty(`--lx`, e.clientX - n.left + `px`),
-                  t.style.setProperty(`--ly`, e.clientY - n.top + `px`),
-                  t.style.setProperty(
-                    `--fx`,
-                    ((e.clientX - n.left) / n.width - 0.5).toFixed(3),
-                  ),
-                  t.style.setProperty(
-                    `--fy`,
-                    ((e.clientY - n.top) / n.height - 0.5).toFixed(3),
-                  ));
-              }));
+              n ||
+                t.addEventListener(
+                  `pointermove`,
+                  (e) => {
+                    ((d = e.clientX),
+                      (f = e.clientY),
+                      (u ||= requestAnimationFrame(() => {
+                        u = 0;
+                        let e = t.getBoundingClientRect();
+                        (t.style.setProperty(`--lx`, d - e.left + `px`),
+                          t.style.setProperty(`--ly`, f - e.top + `px`),
+                          t.style.setProperty(
+                            `--fx`,
+                            ((d - e.left) / e.width - 0.5).toFixed(3),
+                          ),
+                          t.style.setProperty(
+                            `--fy`,
+                            ((f - e.top) / e.height - 0.5).toFixed(3),
+                          ));
+                      })));
+                  },
+                  { passive: !0 },
+                ));
             let s = t.querySelector(`.cena-foto`);
             s &&
               !n &&
               Vi.fromTo(
                 s,
-                { scale: 1.22, yPercent: -5 },
+                { scale: 1.18, yPercent: -4 },
                 {
                   scale: 1.02,
                   yPercent: 4,

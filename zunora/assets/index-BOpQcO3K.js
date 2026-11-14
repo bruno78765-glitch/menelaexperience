@@ -24979,7 +24979,7 @@ Te mando um lembrete 2h antes. Se precisar remarcar é só me chamar aqui.`,
               `div`,
               {
                 className: `wa2-m ` + e,
-                style: { "--d": r * 1.7 + `s` },
+                style: { "--d": r * 0.85 + `s` },
                 children: [
                   e === `ia` && (0, $.jsx)(`em`, { children: `SecretarIA` }),
                   t,
@@ -24993,7 +24993,7 @@ Te mando um lembrete 2h antes. Se precisar remarcar é só me chamar aqui.`,
           ),
           (0, $.jsxs)(`div`, {
             className: `wa2-dig`,
-            style: { "--d": `5.6s` },
+            style: { "--d": `3.1s` },
             children: [
               (0, $.jsx)(`i`, {}),
               (0, $.jsx)(`i`, {}),
@@ -25177,7 +25177,7 @@ function ru({ ativa: e }) {
               `div`,
               {
                 className: `f2-it ` + i,
-                style: { "--d": 1 + a * 0.3 + `s` },
+                style: { "--d": 0.15 + a * 0.2 + `s` },
                 children: [
                   (0, $.jsx)(`span`, { children: (0, $.jsx)(e, { size: 18 }) }),
                   (0, $.jsxs)(`div`, {
@@ -26210,22 +26210,22 @@ var yu = [
 function bu() {
   let e = (0, l.useRef)(null),
     t = du(e),
-    [n, r] = (0, l.useState)(-1),
+    [n, r] = (0, l.useState)(0),
     [i, a] = (0, l.useState)(0);
   return (
     (0, l.useEffect)(() => {
       if (!t) {
-        r(-1);
+        r(0);
         return;
       }
       if (i && Date.now() - i < 9e3) {
         let e = window.setTimeout(() => a(0), 9e3 - (Date.now() - i));
         return () => clearTimeout(e);
       }
-      let e = n,
+      let e = n < 0 ? 0 : n,
         o = window.setInterval(() => {
-          ((e = e >= yu.length ? -1 : e + 1), r(Math.min(e, yu.length - 1)));
-        }, 2300);
+          ((e = (e + 1) % yu.length), r(e));
+        }, 2400);
       return () => clearInterval(o);
     }, [t, i]),
     (0, $.jsxs)(`div`, {
@@ -26425,10 +26425,18 @@ function Cu() {
       return () => clearTimeout(e);
     }
     let e = n,
+      s =
+        e === 0
+          ? window.setTimeout(() => {
+              ((e = 1), r(1));
+            }, 900)
+          : 0,
       o = window.setInterval(() => {
         ((e = (e + 1) % 5), r(Math.min(e, 3)));
       }, 2600);
-    return () => clearInterval(o);
+    return () => {
+      (clearTimeout(s), clearInterval(o));
+    };
   }, [t, i]);
   let o = () => {
       (r((e) => (e >= 3 ? 0 : e + 1)), a(Date.now()));
@@ -26655,9 +26663,14 @@ function Cu() {
           (0, $.jsxs)(
             `button`,
             {
+              type: `button`,
               className: `lv-cv cv` + t + (e.f === `Slides` ? ` slide` : ``),
               style: { "--bg": e.bg, "--fg": e.fg, "--ac": e.ac, "--i": t },
               "aria-label": e.f + `: ` + e.t,
+              "data-cursor": `link`,
+              onClick: () => {
+                (r((t % 3) + 1), a(Date.now()));
+              },
               children: [
                 (0, $.jsx)(`span`, { className: `cv-n`, children: e.n }),
                 (0, $.jsx)(`b`, {

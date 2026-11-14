@@ -27048,31 +27048,34 @@ function ju() {
                           }),
                           (0, $.jsx)(`h3`, {
                             "aria-label": e.titulo,
-                            children: e.titulo
-                              .split(` `)
-                              .map((e, t) =>
-                                (0, $.jsx)(
-                                  `span`,
-                                  {
-                                    className: `pal`,
-                                    children: e
-                                      .split(``)
-                                      .map((e, n) =>
-                                        (0, $.jsx)(
-                                          `span`,
-                                          {
-                                            className: `let`,
-                                            style: { "--i": t * 6 + n },
-                                            "aria-hidden": `true`,
-                                            children: e,
-                                          },
-                                          n,
+                            children: (() => {
+                              let n = 0;
+                              return e.titulo
+                                .split(` `)
+                                .map((e, t) =>
+                                  (0, $.jsx)(
+                                    `span`,
+                                    {
+                                      className: `pal`,
+                                      children: e
+                                        .split(``)
+                                        .map((e, r) =>
+                                          (0, $.jsx)(
+                                            `span`,
+                                            {
+                                              className: `let`,
+                                              style: { "--i": n++ },
+                                              "aria-hidden": `true`,
+                                              children: e,
+                                            },
+                                            r,
+                                          ),
                                         ),
-                                      ),
-                                  },
-                                  t,
-                                ),
-                              ),
+                                    },
+                                    t,
+                                  ),
+                                );
+                            })(),
                           }),
                           (0, $.jsx)(`p`, { children: e.texto }),
                           (0, $.jsx)(`ul`, {

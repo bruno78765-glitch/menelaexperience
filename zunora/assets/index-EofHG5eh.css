@@ -11725,7 +11725,39 @@ img.dn-bol {
 .comp > * {
   transition: none;
 }
+
+.cena h3 {
+  font-size: clamp(44px, 5.8vw, 108px);
+}
+.cena[data-cena="videos"] h3,
+.cena[data-cena="financas"] h3,
+.cena[data-cena="secretaria"] h3 {
+  font-size: clamp(42px, 5.2vw, 94px);
+}
+.cena h3 .let {
+  transition:
+    transform 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.36s;
+  transition-delay: calc(var(--i) * 14ms);
+}
+.cena:not(.ativa) h3 .let {
+  transition-delay: 0s;
+}
+
 @media (width<=760px) {
+  .vitrine .cena-in {
+    padding: 6.5svh 6vw 2.5svh;
+    gap: 1.4svh;
+  }
+  .vitrine .cena h3 {
+    font-size: clamp(32px, 9.6vw, 44px);
+  }
+  .vitrine .cena-txt p {
+    -webkit-line-clamp: 5;
+    font-size: 13.5px;
+    line-height: 1.46;
+    margin-top: 6px;
+  }
   .palco-obj {
     transition:
       transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),

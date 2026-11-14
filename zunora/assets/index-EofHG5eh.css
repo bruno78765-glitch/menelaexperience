@@ -11678,3 +11678,13 @@ img.dn-bol {
   }
 }
 
+@media (width>760px) {
+  .cena.coberta .cena-in,
+  .cena.coberta .cena-bg,
+  .cena.coberta .cena-foto {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+

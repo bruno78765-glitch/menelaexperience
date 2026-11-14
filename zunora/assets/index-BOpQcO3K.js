@@ -27684,15 +27684,15 @@ function Bu() {
             n
               ? Q.create({
                   trigger: t,
-                  start: `top 75%`,
-                  end: `bottom 25%`,
+                  start: `top 88%`,
+                  end: `bottom 5%`,
                   toggleClass: { targets: t, className: `ativa` },
                 })
               : Q.create({
                   trigger: t,
-                  start: `top 55%`,
+                  start: `top 90%`,
                   endTrigger: i,
-                  end: `bottom 45%`,
+                  end: `bottom 2%`,
                   toggleClass: { targets: t, className: `ativa` },
                 });
             let a = t.querySelector(`.comp`);
@@ -27782,6 +27782,8 @@ function Bu() {
                     start: `top bottom`,
                     end: `top top`,
                     scrub: !0,
+                    onLeave: () => t.classList.add(`coberta`),
+                    onEnterBack: () => t.classList.remove(`coberta`),
                   },
                 },
               );

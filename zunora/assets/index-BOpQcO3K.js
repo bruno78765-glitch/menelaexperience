@@ -22752,7 +22752,7 @@ var uc = e((e) => {
 function pc() {
   return (
     (0, l.useEffect)(() => {
-      if (sessionStorage.getItem(`zn-viu`) === `1` && location.hash) {
+      if (sessionStorage.getItem(`zn-viu`) === `1`) {
         window.dispatchEvent(new Event(`zn:entrou`));
         return;
       }
@@ -22767,11 +22767,13 @@ function pc() {
 #ab .ui{position:fixed;inset:0;pointer-events:none}
 #ab .conv{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;color:#3A0E1C;transition:opacity .9s,filter .9s}
 #ab .conv h1{font-family:Marcellus,serif;font-weight:400;font-size:clamp(34px,5vw,74px);letter-spacing:.01em}
-#ab .conv p{margin-top:14px;font-size:14px;color:#8A6F5E;letter-spacing:.04em}
+#ab .conv p{margin-top:14px;font-size:14px;color:#6E5343;letter-spacing:.04em}
 #ab .conv.some{opacity:0;filter:blur(8px)}
-#ab .topo{position:absolute;top:22px;left:26px;right:26px;display:flex;justify-content:space-between;font-size:12px;letter-spacing:.06em;color:#8A6F5E;transition:color 1s}
-#ab .topo.claro{color:rgba(246,235,220,.7)}
-#ab .topo button{pointer-events:auto;background:none;border:0;font:inherit;color:inherit;cursor:pointer}
+#ab .topo{position:absolute;top:22px;left:26px;right:26px;display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.06em;color:#5C4233;transition:color 1s}
+#ab .topo.claro{color:rgba(246,235,220,.85)}
+#ab .topo button{pointer-events:auto;background:rgba(255,250,242,.65);border:1px solid rgba(58,14,28,.22);border-radius:999px;padding:7px 15px;font:500 12px "Instrument Sans",sans-serif;letter-spacing:.04em;color:#3A0E1C;cursor:pointer;transition:background .3s,color .3s,border-color .3s}
+#ab .topo button:hover{background:rgba(90,20,48,.12);border-color:rgba(90,20,48,.4)}
+#ab .topo.claro button{background:rgba(14,5,7,.55);border-color:rgba(226,188,116,.38);color:#F6EBDC}
 #ab .revelar{position:absolute;left:50%;bottom:7%;transform:translate(-50%,14px);opacity:0;pointer-events:none;padding:16px 36px;border:0;border-radius:999px;font:500 14px "Instrument Sans",sans-serif;letter-spacing:.06em;color:#FBEFD8;background:#5A1430;box-shadow:0 16px 40px -14px rgba(90,20,48,.6);cursor:pointer;transition:opacity .5s,transform .5s}
 #ab .revelar.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 #ab .marca{position:absolute;left:0;right:0;bottom:9vh;text-align:center;color:#F6EBDC;opacity:0;transform:translateY(18px);transition:opacity 1.4s,transform 1.4s cubic-bezier(.2,.8,.2,1)}
@@ -23236,19 +23238,6 @@ function pc() {
                 t = W.createBufferSource();
               ((t.buffer = e), t.connect(W.destination), t.start(0));
             } catch {}
-            try {
-              c.muted = !1;
-              let e = c.play();
-              e &&
-                e
-                  .then(() => {
-                    c.pause();
-                    try {
-                      c.currentTime = 0;
-                    } catch {}
-                  })
-                  .catch(() => {});
-            } catch {}
           }
         };
       (f.addEventListener(`touchend`, H, { passive: !0 }),
@@ -23336,18 +23325,27 @@ function pc() {
         try {
           c.currentTime = 0.3;
         } catch {}
+        let Je = setTimeout(() => a(), 8500);
         ((c.muted = !Se),
           (c.style.opacity = 1),
+          (c.onerror = () => {
+            (clearTimeout(Je), a());
+          }),
+          (c.onended = () => {
+            (clearTimeout(Je), a());
+          }),
           c.play().catch(() => {
-            ((c.muted = !0), c.play().catch(() => {}));
+            ((c.muted = !0),
+              c.play().catch(() => {
+                (clearTimeout(Je), a());
+              }));
           }));
         let t = performance.now();
         ((function n() {
           let r = Math.min((performance.now() - t) / 900, 1);
           ((e.style.opacity = 1 - r * r), r < 1 && requestAnimationFrame(n));
         })(),
-          o(`topo`).classList.add(`claro`),
-          (c.onended = () => a()));
+          o(`topo`).classList.add(`claro`));
       }
       function xe(e) {
         if (
@@ -23384,7 +23382,8 @@ function pc() {
         (o(`som`).onclick = () => {
           ((Se = !Se),
             (o(`som`).textContent = `Som: ` + (Se ? `ligado` : `desligado`)),
-            Ce && (Ce.gain.value = Se ? 0.8 : 0));
+            Ce && (Ce.gain.value = Se ? 0.8 : 0),
+            c && (c.muted = !Se));
         }));
       function je() {
         try {

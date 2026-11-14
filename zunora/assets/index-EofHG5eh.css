@@ -11744,6 +11744,17 @@ img.dn-bol {
   transition-delay: 0s;
 }
 
+@media (width>760px) and (width<=809px) {
+  .comp-fin2,
+  .comp-me3,
+  .comp-dn3,
+  .comp-lv,
+  .comp-ia2 {
+    width: 88vw;
+    height: 52vh;
+  }
+}
+
 @media (width<=760px) {
   .vitrine .cena-in {
     padding: 6.5svh 6vw 2.5svh;
@@ -11757,6 +11768,10 @@ img.dn-bol {
     font-size: 13.5px;
     line-height: 1.46;
     margin-top: 6px;
+  }
+  .vitrine .comp-ia2 {
+    height: 92% !important;
+    align-self: end;
   }
   .palco-obj {
     transition:
@@ -11798,7 +11813,7 @@ img.dn-bol {
   overflow: hidden;
 }
 
-@media (width>760px) {
+@media (width>809px) {
   .vitrine .mk-cel,
   .vitrine .comp .mk-cel {
     width: min(300px, 22vw, 35.5vh);

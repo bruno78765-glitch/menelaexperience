@@ -22824,12 +22824,7 @@ function pc() {
               cancelAnimationFrame(n),
               removeEventListener(`resize`, k));
             try {
-              (c.pause(),
-                c.removeAttribute(`src`),
-                c.load(),
-                s.pause(),
-                s.removeAttribute(`src`),
-                s.load());
+              (c.pause(), s.pause());
             } catch {}
             try {
               W && W.close();
@@ -23325,8 +23320,10 @@ function pc() {
         try {
           c.currentTime = 0.3;
         } catch {}
-        let Je = setTimeout(() => a(), 8500);
-        ((c.muted = !Se),
+        let Je = setTimeout(() => a(), 15e3);
+        (o(`sombra`)?.classList.add(`on`),
+          setTimeout(() => !r && o(`marca`)?.classList.add(`on`), 1800),
+          (c.muted = !Se),
           (c.style.opacity = 1),
           (c.onerror = () => {
             (clearTimeout(Je), a());
@@ -24183,7 +24180,7 @@ function xc() {
       `salao2`,
       `mentora`,
       `pilates`,
-      `salao1`,
+      `salao2`,
       `facial`,
       `doces`,
     ],
@@ -27743,7 +27740,7 @@ function Bu() {
                 });
             let a = t.querySelector(`.comp`);
             a &&
-              innerWidth > 760 &&
+              !n &&
               Vi.fromTo(
                 a,
                 { rotateX: 22, rotateY: -18, rotateZ: 2.5, scale: 0.88, y: 56 },
@@ -27768,7 +27765,7 @@ function Bu() {
               d = 0,
               f = 0;
             (o &&
-              innerWidth > 760 &&
+              !n &&
               Vi.fromTo(
                 o,
                 { y: 0 },

@@ -26330,7 +26330,6 @@ function xu() {
           children: (0, $.jsx)(`div`, {
             className: `dn3-rola`,
             ref: t,
-            "data-lenis-prevent": ``,
             children: (0, $.jsx)(`img`, {
               src: `./img/dn-rolagem.webp`,
               alt: `Site da Donna Nina no celular: role para ver as bolachas`,
@@ -26652,7 +26651,6 @@ function Cu() {
       }),
       (0, $.jsx)(`div`, {
         className: `lv-estante`,
-        "data-lenis-prevent": !0,
         children: Su.map((e, t) =>
           (0, $.jsxs)(
             `button`,

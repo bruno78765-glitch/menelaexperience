@@ -27640,16 +27640,19 @@ function Bu() {
       let i = (e) => r.raf(e * 1e3);
       (Vi.ticker.add(i), Vi.ticker.lagSmoothing(0));
       let a = () => r.stop(),
+        ht = null,
         o = () => {
-          (r.start(), requestAnimationFrame(() => Q.refresh()));
+          (r.start(),
+            ht && ht.restart(),
+            requestAnimationFrame(() => Q.refresh()));
         };
       (addEventListener(`zn:travou`, a),
         addEventListener(`zn:entrou`, o),
         document.documentElement.style.overflow === `hidden` && r.stop());
       let s = Vi.context(() => {
           if (t) return;
-          Vi.timeline({
-            scrollTrigger: { trigger: `.fx2-mani`, start: `top 70%`, once: !0 },
+          ht = Vi.timeline({
+            paused: !!document.getElementById(`ab`),
           })
             .fromTo(
               `.fx2-mani .fx2-tag`,
@@ -27668,6 +27671,12 @@ function Bu() {
               { opacity: 0, y: 14 },
               { opacity: 1, y: 0, duration: 0.5 },
               0.35,
+            )
+            .fromTo(
+              `.fx2-mani .fx2-role`,
+              { opacity: 0, y: 10 },
+              { opacity: 1, y: 0, duration: 0.5 },
+              0.55,
             );
           let e = Vi.utils.toArray(`.cena`);
           (e.forEach((t, r) => {
@@ -28014,6 +28023,14 @@ function Bu() {
                 (0, $.jsx)(`p`, {
                   children: `Apps, sites, páginas de vendas, áreas de membros, apostilas e vídeos para quem quer vender o que sabe.`,
                 }),
+              ],
+            }),
+            (0, $.jsxs)(`div`, {
+              className: `fx2-role`,
+              "aria-hidden": `true`,
+              children: [
+                (0, $.jsx)(`span`, { children: `Role para explorar` }),
+                (0, $.jsx)(`i`, {}),
               ],
             }),
           ],

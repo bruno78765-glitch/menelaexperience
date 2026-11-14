@@ -11630,3 +11630,51 @@ img.dn-bol {
     right: auto;
   }
 }
+
+.fx2-role {
+  position: absolute;
+  left: 6vw;
+  bottom: 5.5vh;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font: 500 11.5px var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(246, 235, 220, 0.62);
+  pointer-events: none;
+}
+.fx2-role i {
+  width: 44px;
+  height: 1px;
+  background: rgba(226, 188, 116, 0.28);
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+.fx2-role i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--ouro);
+  transform: translateX(-100%);
+  animation: fx2Role 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes fx2Role {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+@media (width<=760px) {
+  .fx2-role {
+    left: 7vw;
+    bottom: 3.5svh;
+  }
+}
+
